@@ -11,12 +11,11 @@ const SingleProduct = ({ name, price, description }) => {
         />
       </div>
 
-      <div className={styles['product-details']}>
+      <div>
         <h4>
-          <a href="">{name}</a>
+          <p>{name}</p>
         </h4>
-
-        <div className={styles['product-price']}>{price}$</div>
+        <div>{price}$</div>
       </div>
     </Card>
   );

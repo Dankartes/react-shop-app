@@ -1,38 +1,17 @@
-import styles from './ProductsList.module.css';
 import SingleProduct from './SingleProduct';
+import styles from './ProductsList.module.css'
 
-const dummy_products = [
-  {
-    name: 'Papuci',
-    price: '25',
-    description: 'Numa buni de purtat pe maini.',
-  },
-  {
-    name: 'Cartof',
-    price: '50',
-    description: 'Cea mai leguma.',
-  },
-  {
-    name: 'Camion',
-    price: '5000',
-    description: 'Optimus prime descriere.',
-  },
-  {
-    name: 'Incarcator',
-    price: '399',
-    description: 'Descarca telefoane.',
-  },
-];
-
-const ProductsList = () => {
-  return dummy_products.map(product => (
+const ProductsList = ({ products }) => {
+  const list = products.map(product => (
     <SingleProduct
-      key={product.name}
+      key={product.id}
       name={product.name}
       price={product.price}
       description={product.description}
     />
   ));
+
+  return <div className={styles['products-list']}>{list}</div>;
 };
 
 export default ProductsList;
