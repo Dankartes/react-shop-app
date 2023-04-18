@@ -1,46 +1,63 @@
 import { Pagination } from '@mui/material';
-import { useState, useEffect } from 'react';
-import service from '../service';
+import { json, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+const pageSize = 2;
 
-const pageSize = 6;
+const ShopPagination = () => {
+  const { count } = useLoaderData();
+  const navigate = useNavigate();
 
-const ShopPagination = ({ onProductsChange }) => {
   const pageChangeHandler = (event, page) => {
-    const from = (page - 1) * pageSize;
-    const to = (page - 1) * pageSize + pageSize;
-
-    setPagination(prevPag => {
-      return { ...prevPag, from: from, to: to };
-    });
+    navigate(`/${page}`);
   };
 
-  const [pagination, setPagination] = useState({
-    count: 0,
-    from: 0,
-    to: pageSize,
-  });
-
-  useEffect(() => {
-    service
-      .getData({ from: pagination.from, to: pagination.to })
-      .then(response => {
-        // console.log(response);
-        // setPagination({ ...pagination, count: response.count });
-        onProductsChange(response);
-
-        setPagination(prevPag => {
-          return { ...prevPag, count: response.count };
-        });
-      });
-  }, [pagination.from, pagination.to]);
+  const { pageNumber: currentPage } = useParams();
 
   return (
     <Pagination
       style={{ marginTop: '10px' }}
-      count={Math.ceil(pagination.count / pageSize)}
+      count={Math.ceil(count / pageSize)}
       onChange={pageChangeHandler}
+      defaultPage={1}
+      page={Number(currentPage)}
     />
   );
 };
 
 export default ShopPagination;
+
+export const loader = async ({ params }) => {
+  const page = params.pageNumber;
+  const from = (page - 1) * pageSize;
+  const to = (page - 1) * pageSize + pageSize;
+
+  try {
+    const response = await fetch(
+      'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json'
+    );
+    const data = await response.json();
+
+    let newProducts = [];
+
+    for (const [key, product] of Object.entries(data))
+      newProducts.unshift({
+        id: key,
+        name: product.name,
+        price: product.price,
+        description: product.description,
+      });
+
+    const slicedNewProducts = newProducts.slice(from, to);
+
+    return {
+      products: slicedNewProducts,
+      count: newProducts.length,
+    };
+  } catch (error) {
+    throw json(
+      { message: 'could not fetch products' },
+      {
+        status: 500,
+      }
+    );
+  }
+};
