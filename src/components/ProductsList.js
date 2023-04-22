@@ -1,17 +1,24 @@
 import SingleProduct from './SingleProduct';
-import styles from './ProductsList.module.css'
+import { Grid } from '@mui/material';
+// import styles from './ProductsList.module.css';
 
 const ProductsList = ({ products }) => {
   const list = products.map(product => (
-    <SingleProduct
-      key={product.id}
-      name={product.name}
-      price={product.price}
-      description={product.description}
-    />
+    <Grid key={product.id} item xs={6} md={4}>
+      <SingleProduct
+        name={product.name}
+        price={product.price}
+        description={product.description}
+        image={product.image}
+      />
+    </Grid>
   ));
 
-  return <div className={styles['products-list']}>{list}</div>;
+  return (
+    <Grid container rowSpacing={2}>
+      {list}
+    </Grid>
+  );
 };
 
 export default ProductsList;

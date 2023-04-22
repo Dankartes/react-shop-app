@@ -1,6 +1,7 @@
 import { Pagination } from '@mui/material';
 import { json, useLoaderData, useNavigate, useParams } from 'react-router-dom';
-const pageSize = 2;
+
+const pageSize = 6;
 
 const ShopPagination = () => {
   const { count } = useLoaderData();
@@ -27,6 +28,7 @@ export default ShopPagination;
 
 export const loader = async ({ params }) => {
   const page = params.pageNumber;
+
   const from = (page - 1) * pageSize;
   const to = (page - 1) * pageSize + pageSize;
 
@@ -44,7 +46,12 @@ export const loader = async ({ params }) => {
         name: product.name,
         price: product.price,
         description: product.description,
+        image: product.image
       });
+
+  
+
+    if (page > Math.ceil(newProducts.length / pageSize) || !(page > 0)) return;
 
     const slicedNewProducts = newProducts.slice(from, to);
 

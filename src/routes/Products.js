@@ -1,21 +1,25 @@
-import styles from './Products.module.css';
+// import styles from './Products.module.css';
 import ProductsList from '../components/ProductsList';
 import ShopPagination from '../components/ShopPagination';
 import { useLoaderData } from 'react-router-dom';
+import ProductsFilter from '../components/ProductsFilter';
+import { Grid } from '@mui/material';
 
 const Products = () => {
-  // const [products, setProducts] = useState([]);
-  // const productsChangeHandler = changedProducts => {
-  //   setProducts(changedProducts);
-  // };
-
   const data = useLoaderData();
 
+  // console.log(data);
+
   return (
-    <div className={styles['products-list']}>
-      <ProductsList products={data.products} />
-      <ShopPagination />
-    </div>
+    <Grid container spacing={2}>
+      <Grid md={3} item>
+        <ProductsFilter />
+      </Grid>
+      <Grid md={9} item>
+        <ProductsList products={data.products} />
+        <ShopPagination />
+      </Grid>
+    </Grid>
   );
 };
 
