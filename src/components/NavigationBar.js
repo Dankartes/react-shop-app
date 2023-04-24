@@ -1,5 +1,4 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
 
 const NavigationBar = () => {
   return (

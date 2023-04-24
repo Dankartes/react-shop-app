@@ -3,7 +3,8 @@ import ProductsList from '../components/ProductsList';
 import ShopPagination from '../components/ShopPagination';
 import { useLoaderData } from 'react-router-dom';
 import ProductsFilter from '../components/ProductsFilter';
-import { Grid } from '@mui/material';
+
+import { Container, Col, Row } from 'react-bootstrap';
 
 const Products = () => {
   const data = useLoaderData();
@@ -11,15 +12,18 @@ const Products = () => {
   // console.log(data);
 
   return (
-    <Grid container spacing={2}>
-      <Grid md={3} item>
-        <ProductsFilter />
-      </Grid>
-      <Grid md={9} item>
-        <ProductsList products={data.products} />
-        <ShopPagination />
-      </Grid>
-    </Grid>
+    <Container fluid>
+      <Row>
+        <Col md={3}>
+          <ProductsFilter />
+        </Col>
+
+        <Col md={9}>
+          <ProductsList products={data.products} />
+          <ShopPagination />
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
