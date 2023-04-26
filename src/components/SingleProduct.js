@@ -14,7 +14,7 @@ import { Card, Button } from 'react-bootstrap';
 
 const SingleProduct = ({ name, price, description, image }) => {
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{minHeight: '250px' }}>
       <Card.Img variant="top" src={image} />
 
       <Card.Body>

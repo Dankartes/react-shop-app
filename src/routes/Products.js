@@ -13,12 +13,12 @@ const Products = () => {
 
   return (
     <Container fluid>
-      <Row>
-        <Col md={3}>
+      <Row >
+        <Col xs={12} md={3}>
           <ProductsFilter />
         </Col>
 
-        <Col md={9}>
+        <Col xs={12} md={9}>
           <ProductsList products={data.products} />
           <ShopPagination />
         </Col>
