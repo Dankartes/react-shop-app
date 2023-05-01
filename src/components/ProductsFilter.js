@@ -1,13 +1,23 @@
-import { Card, Button } from 'react-bootstrap';
-import { Slider, TextField } from '@mui/material';
+import {
+  Slider,
+  TextField,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Grid,
+} from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const ProductsFilter = () => {
-  const [priceInterval, setPriceInterval] = useState([20, 50]);
+  const [[minPrice, maxPrice], setPriceInterval] = useState([1, 1000]);
+  const [productName, setProductName] = useState('');
 
   const priceChangeHandler = (event, newInterval) => {
     setPriceInterval(newInterval);
-    console.log(newInterval);
   };
 
   const maxPriceHandler = event => {
@@ -18,29 +28,31 @@ const ProductsFilter = () => {
     setPriceInterval(prevState => [event.target.value, prevState[1]]);
   };
 
-  const handlePriceIntervalBlur = () => {
-    if (value < 0) {
-      setValue(0);
-    } else if (value > 100) {
-      setValue(100);
-    }
-  };
+  // const inputPriceBlurHandler = () => {
+  //  //later
+  // };
 
   const inputProps = {
     min: 1,
     max: 1000,
     type: 'number',
+    // onBlur: inputPriceBlurHandler,
     'aria-labelledby': 'input-slider',
+  };
+
+  const productNameHandler = event => {
+    setProductName(event.target.value);
+    console.log(productName);
   };
 
   return (
     <Card>
-      <Card.Body>
+      <CardContent>
         <Slider
           min={1}
           max={1000}
           disableSwap
-          value={priceInterval}
+          value={[minPrice, maxPrice]}
           onChange={priceChangeHandler}
           valueLabelDisplay="auto"
         />
@@ -48,18 +60,40 @@ const ProductsFilter = () => {
         <TextField
           inputProps={inputProps}
           onChange={minPriceHandler}
-          value={priceInterval[0]}
+          value={minPrice}
           variant="outlined"
           label="min"
         />
+
         <TextField
           inputProps={inputProps}
           onChange={maxPriceHandler}
-          value={priceInterval[1]}
+          value={maxPrice}
           variant="outlined"
           label="max"
         />
-      </Card.Body>
+
+        <TextField
+          variant="outlined"
+          label="Product Name"
+          value={productName}
+          onChange={productNameHandler}
+        />
+      </CardContent>
+      <CardActions>
+        <Button size="small" startIcon={<ClearIcon />} color="error">
+          Clear
+        </Button>
+        <Button
+          size="small"
+          startIcon={<SearchIcon />}
+          component={Link}
+          to={`?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}`}
+          variant="outlined"
+        >
+          Filter
+        </Button>
+      </CardActions>
     </Card>
   );
 };

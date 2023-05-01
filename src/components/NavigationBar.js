@@ -6,7 +6,7 @@ const NavigationBar = () => {
       <Container>
         <Navbar.Brand href="/">Shop</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="/1">Products</Nav.Link>
+          <Nav.Link href="/products/1">Products</Nav.Link>
           <Nav.Link href="/add-product">Add product</Nav.Link>
         </Nav>
       </Container>

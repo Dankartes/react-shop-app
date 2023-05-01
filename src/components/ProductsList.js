@@ -1,24 +1,23 @@
 import SingleProduct from './SingleProduct';
-import { Row, Col, Container } from 'react-bootstrap';
-
+import { Grid } from '@mui/material';
 // import styles from './ProductsList.module.css';
 
 const ProductsList = ({ products }) => {
   const list = products.map(product => (
-    <Col key={product.id} >
+    <Grid key={product.id} item xs={6} md={4}>
       <SingleProduct
         name={product.name}
         price={product.price}
         description={product.description}
         image={product.image}
       />
-    </Col>
+    </Grid>
   ));
 
   return (
-    <Container fluid>
-      <Row xs={2} md={4}>{list}</Row>
-    </Container>
+    <Grid container spacing={2}>
+      {list}
+    </Grid>
   );
 };
 

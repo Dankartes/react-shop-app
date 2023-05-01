@@ -1,27 +1,40 @@
 // import styles from './SingleProduct.module.scss';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
-// import {
-//   Card,
-//   CardContent,
-//   CardMedia,
-//   CardActions,
-//   Button,
-//   CardActionArea,
-// } from '@mui/material';
-
-import { Card, Button } from 'react-bootstrap';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  CardActions,
+  Button,
+  CardActionArea,
+  Typography,
+} from '@mui/material';
 
 const SingleProduct = ({ name, price, description, image }) => {
-  return (
-    <Card style={{minHeight: '250px' }}>
-      <Card.Img variant="top" src={image} />
 
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>{price}$</Card.Text>
-        <Button variant="primary">Add</Button>
-      </Card.Body>
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia sx={{ height: 140 }} image={image} />
+
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          {name}
+        </Typography>
+        <Typography gutterBottom variant="h5" component="div">
+          {price}$
+        </Typography>
+      </CardContent>
+
+      <CardActions>
+        <Button
+          variant="outlined"
+          startIcon={<ShoppingCartIcon />}
+          size="small"
+        >
+          Add
+        </Button>
+      </CardActions>
     </Card>
   );
 };

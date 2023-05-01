@@ -3,27 +3,28 @@ import ProductsList from '../components/ProductsList';
 import ShopPagination from '../components/ShopPagination';
 import { useLoaderData } from 'react-router-dom';
 import ProductsFilter from '../components/ProductsFilter';
-
-import { Container, Col, Row } from 'react-bootstrap';
+import { Grid } from '@mui/material';
+import { useSearchParams } from 'react-router-dom';
+import { useState } from 'react';
 
 const Products = () => {
+
+
+
+
   const data = useLoaderData();
 
-  // console.log(data);
-
   return (
-    <Container fluid>
-      <Row >
-        <Col xs={12} md={3}>
-          <ProductsFilter />
-        </Col>
+    <Grid container spacing={2}>
+      <Grid item md={3} xs={12}>
+        <ProductsFilter />
+      </Grid>
 
-        <Col xs={12} md={9}>
-          <ProductsList products={data.products} />
-          <ShopPagination />
-        </Col>
-      </Row>
-    </Container>
+      <Grid item md={9} xs={12}>
+        <ProductsList products={data.products} />
+        <ShopPagination />
+      </Grid>
+    </Grid>
   );
 };
 

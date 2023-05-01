@@ -9,6 +9,7 @@ import Products from './routes/Products';
 import { loader as productsLoader } from './components/ShopPagination';
 import ErrorPage from './routes/ErrorPage';
 import AddProduct, { action as addProductAction } from './routes/AddProduct';
+import SearchNotFound from './routes/SearchNotFound';
 
 const router = createBrowserRouter([
   {
@@ -21,9 +22,10 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: ':pageNumber',
+        path: '/products/:pageNumber',
         element: <Products />,
         loader: productsLoader,
+        errorElement: <SearchNotFound />
       },
       {
         path: '/add-product',
