@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         path: '/products/:pageNumber',
         element: <Products />,
         loader: productsLoader,
-        errorElement: <SearchNotFound />
+        errorElement: <SearchNotFound />,
       },
       {
         path: '/add-product',

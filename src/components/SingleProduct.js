@@ -1,32 +1,38 @@
 // import styles from './SingleProduct.module.scss';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
 import {
   Card,
   CardContent,
   CardMedia,
   CardActions,
   Button,
-  CardActionArea,
   Typography,
+  Divider,
 } from '@mui/material';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const SingleProduct = ({ name, price, description, image }) => {
-
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia sx={{ height: 140 }} image={image} />
-
+    <Card sx={{ maxHeight: 400 }}>
+      <CardMedia
+        sx={{ height: 200, objectFit: 'contain' }}
+        image={image}
+        alt="product"
+        component="img"
+      />
+      <Divider variant="middle">
+        <FavoriteIcon />
+      </Divider>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}
         </Typography>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography sx={{ color: 'orange' }} variant="h5" component="div">
           {price}$
         </Typography>
       </CardContent>
 
-      <CardActions>
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
           variant="outlined"
           startIcon={<ShoppingCartIcon />}

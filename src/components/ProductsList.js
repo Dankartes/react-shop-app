@@ -4,7 +4,7 @@ import { Grid } from '@mui/material';
 
 const ProductsList = ({ products }) => {
   const list = products.map(product => (
-    <Grid key={product.id} item xs={6} md={4}>
+    <Grid key={product.id} item xs={12} sm={6} md={4}>
       <SingleProduct
         name={product.name}
         price={product.price}

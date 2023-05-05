@@ -48,40 +48,59 @@ const ProductsFilter = () => {
   return (
     <Card>
       <CardContent>
-        <Slider
-          min={1}
-          max={1000}
-          disableSwap
-          value={[minPrice, maxPrice]}
-          onChange={priceChangeHandler}
-          valueLabelDisplay="auto"
-        />
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              variant="outlined"
+              label="Product Name"
+              value={productName}
+              onChange={productNameHandler}
+            />
+          </Grid>
 
-        <TextField
-          inputProps={inputProps}
-          onChange={minPriceHandler}
-          value={minPrice}
-          variant="outlined"
-          label="min"
-        />
+          <Grid item xs={12} md={12}>
+            <Slider
+              min={1}
+              max={1000}
+              disableSwap
+              value={[minPrice, maxPrice]}
+              onChange={priceChangeHandler}
+              valueLabelDisplay="auto"
+            />
+          </Grid>
 
-        <TextField
-          inputProps={inputProps}
-          onChange={maxPriceHandler}
-          value={maxPrice}
-          variant="outlined"
-          label="max"
-        />
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              inputProps={inputProps}
+              onChange={minPriceHandler}
+              value={minPrice}
+              variant="outlined"
+              label="min"
+            />
+          </Grid>
 
-        <TextField
-          variant="outlined"
-          label="Product Name"
-          value={productName}
-          onChange={productNameHandler}
-        />
+          <Grid item xs={12} md={6}>
+            <TextField
+              fullWidth
+              inputProps={inputProps}
+              onChange={maxPriceHandler}
+              value={maxPrice}
+              variant="outlined"
+              label="max"
+            />
+          </Grid>
+        </Grid>
       </CardContent>
-      <CardActions>
-        <Button size="small" startIcon={<ClearIcon />} color="error">
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <Button
+          to={'/products/1'}
+          size="small"
+          startIcon={<ClearIcon />}
+          color="error"
+          component={Link}
+        >
           Clear
         </Button>
         <Button

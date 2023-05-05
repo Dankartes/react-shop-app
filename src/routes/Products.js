@@ -4,27 +4,23 @@ import ShopPagination from '../components/ShopPagination';
 import { useLoaderData } from 'react-router-dom';
 import ProductsFilter from '../components/ProductsFilter';
 import { Grid } from '@mui/material';
-import { useSearchParams } from 'react-router-dom';
-import { useState } from 'react';
 
 const Products = () => {
-
-
-
-
   const data = useLoaderData();
 
   return (
-    <Grid container spacing={2}>
-      <Grid item md={3} xs={12}>
-        <ProductsFilter />
-      </Grid>
+    <div style={{margin: "1%"}}>
+      <Grid container spacing={2}>
+        <Grid item md={3} xs={12}>
+          <ProductsFilter />
+        </Grid>
 
-      <Grid item md={9} xs={12}>
-        <ProductsList products={data.products} />
-        <ShopPagination />
+        <Grid item md={9} xs={12}>
+          <ProductsList products={data.products} />
+          <ShopPagination />
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };
 

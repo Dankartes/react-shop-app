@@ -20,11 +20,12 @@ const ShopPagination = () => {
     <>
       {currentPage <= Math.ceil(count / pageSize) ? (
         <Pagination
+          color="primary"
           style={{ marginTop: '10px' }}
           count={Math.ceil(count / pageSize)}
           onChange={pageChangeHandler}
           defaultPage={1}
-          page={Number(currentPage)}
+          page={+currentPage}
         />
       ) : (
         <NoProducts />
@@ -38,8 +39,8 @@ export default ShopPagination;
 export const loader = async ({ params, request }) => {
   const url = new URL(request.url);
   const productName = url.searchParams.get('name');
-  const minPrice = Number(url.searchParams.get('min-price'));
-  const maxPrice = Number(url.searchParams.get('max-price'));
+  const minPrice = +url.searchParams.get('min-price');
+  const maxPrice = +url.searchParams.get('max-price');
 
   const page = params.pageNumber;
 
@@ -70,8 +71,7 @@ export const loader = async ({ params, request }) => {
 
     if (minPrice && maxPrice) {
       newProducts = newProducts.filter(
-        product =>
-          Number(product.price) >= minPrice && Number(product.price) <= maxPrice
+        product => +product.price >= minPrice && +product.price <= maxPrice
       );
     }
 
