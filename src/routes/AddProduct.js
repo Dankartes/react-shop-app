@@ -7,7 +7,7 @@ const AddProduct = () => {
   };
 
   return (
-    <Form method="post" action="/add-product" className={styles.form}>
+    <Form method="post" action="/add-product" className={styles['add-form']}>
       <label htmlFor="name">Name:</label>
       <input name="name" type="text" id="name" />
 

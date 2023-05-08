@@ -5,9 +5,11 @@ import {
   CardContent,
   CardMedia,
   CardActions,
-  Button,
   Typography,
   Divider,
+  IconButton,
+  ButtonGroup,
+  CardHeader,
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
@@ -20,26 +22,27 @@ const SingleProduct = ({ name, price, description, image }) => {
         alt="product"
         component="img"
       />
-      <Divider variant="middle">
-        <FavoriteIcon />
-      </Divider>
+
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}
         </Typography>
+        <Divider sx={{ backgroundColor: 'black' }}></Divider>
+      </CardContent>
+
+      <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ color: 'orange' }} variant="h5" component="div">
           {price}$
         </Typography>
-      </CardContent>
 
-      <CardActions sx={{ justifyContent: 'flex-end' }}>
-        <Button
-          variant="outlined"
-          startIcon={<ShoppingCartIcon />}
-          size="small"
-        >
-          Add
-        </Button>
+        <ButtonGroup >
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="add to cart">
+            <ShoppingCartIcon />
+          </IconButton>
+        </ButtonGroup>
       </CardActions>
     </Card>
   );

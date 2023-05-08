@@ -5,7 +5,9 @@ const RootLayout = () => {
   return (
     <>
       <NavigationBar />
-      <Outlet />
+      <div style={{ margin: '1%', display: 'flex', justifyContent: 'center' }}>
+        <Outlet />
+      </div>
     </>
   );
 };

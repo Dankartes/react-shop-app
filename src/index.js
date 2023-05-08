@@ -10,6 +10,7 @@ import { loader as productsLoader } from './components/ShopPagination';
 import ErrorPage from './routes/ErrorPage';
 import AddProduct, { action as addProductAction } from './routes/AddProduct';
 import SearchNotFound from './routes/SearchNotFound';
+import SingleProductDetails from './components/SingleProductDetails';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         path: '/add-product',
         element: <AddProduct />,
         action: addProductAction,
+      },
+      {
+        path: '/item/:productId',
+        element: <SingleProductDetails />,
       },
     ],
   },

@@ -9,7 +9,7 @@ const Products = () => {
   const data = useLoaderData();
 
   return (
-    <div style={{margin: "1%"}}>
+   
       <Grid container spacing={2}>
         <Grid item md={3} xs={12}>
           <ProductsFilter />
@@ -20,7 +20,7 @@ const Products = () => {
           <ShopPagination />
         </Grid>
       </Grid>
-    </div>
+    
   );
 };
 
