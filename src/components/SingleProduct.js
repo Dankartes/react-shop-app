@@ -9,13 +9,19 @@ import {
   Divider,
   IconButton,
   ButtonGroup,
-  CardHeader,
+  CardActionArea,
+  Button,
 } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from 'react-router-dom';
 
-const SingleProduct = ({ name, price, description, image }) => {
+const SingleProduct = ({  name, price, image }) => {
   return (
     <Card sx={{ maxHeight: 400 }}>
+      <Button component={Link} to={`/item/${name}`}>
+        Test
+      </Button>
+
       <CardMedia
         sx={{ height: 200, objectFit: 'contain' }}
         image={image}
@@ -29,13 +35,12 @@ const SingleProduct = ({ name, price, description, image }) => {
         </Typography>
         <Divider sx={{ backgroundColor: 'black' }}></Divider>
       </CardContent>
-
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ color: 'orange' }} variant="h5" component="div">
           {price}$
         </Typography>
 
-        <ButtonGroup >
+        <ButtonGroup>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
           </IconButton>

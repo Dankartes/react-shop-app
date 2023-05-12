@@ -14,8 +14,6 @@ const ShopPagination = () => {
 
   const { pageNumber: currentPage } = useParams();
 
-  console.log(currentPage);
-
   return (
     <>
       {currentPage <= Math.ceil(count / pageSize) ? (

@@ -1,5 +1,6 @@
 import styles from './AddProduct.module.css';
 import { Form, redirect } from 'react-router-dom';
+import { Card } from '@mui/material';
 
 const AddProduct = () => {
   const submitHandler = event => {
@@ -7,25 +8,27 @@ const AddProduct = () => {
   };
 
   return (
-    <Form method="post" action="/add-product" className={styles['add-form']}>
-      <label htmlFor="name">Name:</label>
-      <input name="name" type="text" id="name" />
+    <Card>
+      <Form method="post" action="/add-product" className={styles['add-form']}>
+        <label htmlFor="name">Name:</label>
+        <input name="name" type="text" id="name" />
 
-      <label htmlFor="price">Price:</label>
-      <input name="price" type="number" id="price" />
+        <label htmlFor="price">Price:</label>
+        <input name="price" type="number" id="price" />
 
-      <label htmlFor="image" id="image">
-        Image
-      </label>
-      <input name="image" type="text" id="image" />
+        <label htmlFor="image" id="image">
+          Image
+        </label>
+        <input name="image" type="text" id="image" />
 
-      <label htmlFor="description">Description:</label>
-      <textarea name="description" id="description"></textarea>
+        <label htmlFor="description">Description:</label>
+        <textarea name="description" id="description"></textarea>
 
-      <section>
-        <button>Add product</button>
-      </section>
-    </Form>
+        <section>
+          <button>Add product</button>
+        </section>
+      </Form>
+    </Card>
   );
 };
 

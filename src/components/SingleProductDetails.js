@@ -1,26 +1,15 @@
 import styles from './SingleProductDetails.module.css';
-import {
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Button,
-  ButtonGroup,
-  Typography,
-  IconButton,
-  Grid,
-  Container,
-  Divider,
-} from '@mui/material';
+import { Button, ButtonGroup, CardActions } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const SingleProductDetails = () => {
   return (
     <div className={styles['product-container']}>
-      <div className={styles.imgBx}>
+      <div className={styles.imgBox}>
         <img
-          src="https://i5.walmartimages.ca/images/Enlarge/234/6_r/6000191272346_R.jpg"
+          style={{ objectFit: 'contain', height: 500 }}
+          src="image"
           alt="Product"
         />
       </div>
@@ -28,24 +17,16 @@ const SingleProductDetails = () => {
       <div className={styles.details}>
         <div>
           <h2>
-            Jordan Proto-Lyte
+            nume
             <br />
-            <span>Running Collection</span>
+            <span>PLACEHOLDER</span>
           </h2>
-          <p>
-            Featuring soft foam cushioning and lightweight, woven fabric in the
-            upper, the Jordan Proto-Lyte is made for all-day, bouncy comfort.
-            Lightweight Breathability: Lightweight woven fabric with real or
-            synthetic leather provides breathable support. Cushioned Comfort: A
-            full-length foam midsole delivers lightweight, plush cushioning.
-            Secure Traction: Exaggerated herringbone-pattern outsole offers
-            traction on a variety of surfaces.
-          </p>
+          <p>descr</p>
 
           <CardActions
             sx={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <h3>200$</h3>
+            <h3>price$</h3>
             <ButtonGroup>
               <Button variant="outlined" startIcon={<FavoriteIcon />}>
                 Favorite
@@ -65,5 +46,25 @@ const SingleProductDetails = () => {
     </div>
   );
 };
+
+// export const loader = async ({ params }) => {
+//   const productName = params.productName;
+
+//   try {
+//     const response = await fetch(
+//       `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json?orderBy="name"&equalTo="${productName}"`
+//     );
+
+//     const data = response.json();
+
+//     data
+
+
+
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   return null;
+// };
 
 export default SingleProductDetails;

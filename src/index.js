@@ -16,7 +16,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <RootLayout />,
-    errorElement: <ErrorPage />,
+    // errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         action: addProductAction,
       },
       {
-        path: '/item/:productId',
+        path: '/item/:productName',
         element: <SingleProductDetails />,
       },
     ],
@@ -44,6 +44,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    {/* <Provider store={store}> */}
     <RouterProvider router={router} />
+    {/* </Provider> */}
   </React.StrictMode>
 );
