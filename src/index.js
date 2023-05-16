@@ -8,10 +8,11 @@ import RootLayout from './routes/RootLayout';
 import Products from './routes/Products';
 import { loader as productsLoader } from './components/ShopPagination';
 import ErrorPage from './routes/ErrorPage';
-import AddProduct, { action as addProductAction } from './routes/AddProduct';
+import AddProduct from './routes/AddProduct';
 import SearchNotFound from './routes/SearchNotFound';
 import SingleProductDetails from './components/SingleProductDetails';
-
+import { Provider } from 'react-redux';
+import store from './store/index';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: '/add-product',
         element: <AddProduct />,
-        action: addProductAction,
+        // action: addProductAction,
       },
       {
         path: '/item/:productName',
@@ -44,8 +45,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    <RouterProvider router={router} />
-    {/* </Provider> */}
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
