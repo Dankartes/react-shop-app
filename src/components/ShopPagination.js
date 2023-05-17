@@ -1,18 +1,13 @@
 import { Pagination } from '@mui/material';
-import { json, useLoaderData, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import NoProducts from './NoProducts';
 
-const pageSize = 6;
-
-const ShopPagination = () => {
-  const { count } = useLoaderData();
+const ShopPagination = ({ count, pageSize, currentPage }) => {
   const navigate = useNavigate();
 
   const pageChangeHandler = (event, page) => {
     navigate(`/products/${page}`);
   };
-
-  const { pageNumber: currentPage } = useParams();
 
   return (
     <>
@@ -34,59 +29,60 @@ const ShopPagination = () => {
 
 export default ShopPagination;
 
-export const loader = async ({ params, request }) => {
-  const url = new URL(request.url);
-  const productName = url.searchParams.get('name');
-  const minPrice = +url.searchParams.get('min-price');
-  const maxPrice = +url.searchParams.get('max-price');
+// old loader code
+// export const loader = async ({ params, request }) => {
+//   const url = new URL(request.url);
+//   const productName = url.searchParams.get('name');
+//   const minPrice = +url.searchParams.get('min-price');
+//   const maxPrice = +url.searchParams.get('max-price');
 
-  const page = params.pageNumber;
+//   const page = params.pageNumber;
 
-  const from = (page - 1) * pageSize;
-  const to = (page - 1) * pageSize + pageSize;
+//   const from = (page - 1) * pageSize;
+//   const to = (page - 1) * pageSize + pageSize;
 
-  try {
-    const response = await fetch(
-      'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json'
-    );
-    const data = await response.json();
+//   try {
+//     const response = await fetch(
+//       'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json'
+//     );
+//     const data = await response.json();
 
-    let newProducts = [];
+//     let newProducts = [];
 
-    for (const [key, product] of Object.entries(data))
-      newProducts.unshift({
-        id: key,
-        name: product.name,
-        price: product.price,
-        description: product.description,
-        image: product.image,
-      });
+//     for (const [key, product] of Object.entries(data))
+//       newProducts.unshift({
+//         id: key,
+//         name: product.name,
+//         price: product.price,
+//         description: product.description,
+//         image: product.image,
+//       });
 
-    if (productName)
-      newProducts = newProducts.filter(product =>
-        product.name.toLowerCase().includes(productName.toLowerCase())
-      );
+//     if (productName)
+//       newProducts = newProducts.filter(product =>
+//         product.name.toLowerCase().includes(productName.toLowerCase())
+//       );
 
-    if (minPrice && maxPrice) {
-      newProducts = newProducts.filter(
-        product => +product.price >= minPrice && +product.price <= maxPrice
-      );
-    }
+//     if (minPrice && maxPrice) {
+//       newProducts = newProducts.filter(
+//         product => +product.price >= minPrice && +product.price <= maxPrice
+//       );
+//     }
 
-    // if (page > Math.ceil(newProducts.length / pageSize)) return;
+//     // if (page > Math.ceil(newProducts.length / pageSize)) return;
 
-    const slicedNewProducts = newProducts.slice(from, to);
+//     const slicedNewProducts = newProducts.slice(from, to);
 
-    return {
-      products: slicedNewProducts,
-      count: newProducts.length,
-    };
-  } catch (error) {
-    throw json(
-      { message: 'could not fetch products' },
-      {
-        status: 500,
-      }
-    );
-  }
-};
+//     return {
+//       products: slicedNewProducts,
+//       count: newProducts.length,
+//     };
+//   } catch (error) {
+//     throw json(
+//       { message: 'could not fetch products' },
+//       {
+//         status: 500,
+//       }
+//     );
+//   }
+// };

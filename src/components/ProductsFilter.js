@@ -11,10 +11,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsFilter = () => {
   const [[minPrice, maxPrice], setPriceInterval] = useState([1, 1000]);
   const [productName, setProductName] = useState('');
+  const navigation = useNavigate();
 
   const priceChangeHandler = (event, newInterval) => {
     setPriceInterval(newInterval);
@@ -42,7 +44,12 @@ const ProductsFilter = () => {
 
   const productNameHandler = event => {
     setProductName(event.target.value);
-    console.log(productName);
+  };
+
+  const clearFilterHandler = () => {
+    navigation('/products/1');
+    setPriceInterval([1, 1000]);
+    setProductName('');
   };
 
   return (
@@ -95,11 +102,10 @@ const ProductsFilter = () => {
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
         <Button
-          to={'/products/1'}
           size="small"
           startIcon={<ClearIcon />}
           color="error"
-          component={Link}
+          onClick={clearFilterHandler}
         >
           Clear
         </Button>

@@ -1,8 +1,6 @@
 import styles from './AddProduct.module.css';
-import { redirect } from 'react-router-dom';
 import { Card } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../store/index';
+import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { sendProductData } from '../store/index';
 
@@ -13,8 +11,7 @@ const AddProduct = () => {
   const inputDescriptionRef = useRef();
 
   const dispatch = useDispatch();
-  // const products = useSelector(state => state.products);
- 
+
   const submitHandler = event => {
     event.preventDefault();
 
