@@ -5,7 +5,6 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-
 const SingleProductDetails = () => {
   const { productId } = useParams();
   const products = useSelector(state => state.productsReducer.products);
@@ -16,7 +15,7 @@ const SingleProductDetails = () => {
     <div className={styles['product-container']}>
       <div className={styles.imgBox}>
         <img
-          style={{ objectFit: 'contain', height: 500 }}
+          style={{ objectFit: 'contain', height: 500, width: 500 }}
           src={currentProduct.image}
           alt="Product"
         />
@@ -27,7 +26,7 @@ const SingleProductDetails = () => {
           <h2>
             {currentProduct.name}
             <br />
-            <span>PLACEHOLDER</span>
+            <span>{currentProduct.category}</span>
           </h2>
           <p>{currentProduct.description}</p>
 
@@ -52,7 +51,9 @@ const SingleProductDetails = () => {
         </div>
       </div>
     </div>
-  ) : "";
+  ) : (
+    ''
+  );
 
   return productDetails;
 };

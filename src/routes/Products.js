@@ -17,11 +17,18 @@ const Products = () => {
   const name = searchParams.get('name');
   const minPrice = +searchParams.get('min-price');
   const maxPrice = +searchParams.get('max-price');
+  const categoryId = +searchParams.get('category');
   let modifiedProducts = [...products];
 
   if (name) {
     modifiedProducts = modifiedProducts.filter(product =>
       product.name.toLowerCase().includes(name.toLowerCase())
+    );
+  }
+
+  if (categoryId) {
+    modifiedProducts = modifiedProducts.filter(
+      product => product.categoryId === categoryId
     );
   }
 

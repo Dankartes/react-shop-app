@@ -6,6 +6,10 @@ import {
   CardActions,
   Button,
   Grid,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormControl,
 } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -13,9 +17,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import { useNavigate } from 'react-router-dom';
 
+export const categories = [
+  { name: 'Home Goods', value: 1 },
+  { name: 'Clothing & Footwear', value: 2 },
+  { name: 'Food & Beverages', value: 3 },
+  { name: 'Entertainment', value: 4 },
+];
+
 const ProductsFilter = () => {
   const [[minPrice, maxPrice], setPriceInterval] = useState([1, 1000]);
+
   const [productName, setProductName] = useState('');
+  const [category, setCategory] = useState('');
   const navigation = useNavigate();
 
   const priceChangeHandler = (event, newInterval) => {
@@ -52,6 +65,10 @@ const ProductsFilter = () => {
     setProductName('');
   };
 
+  const categoryChangeHandler = event => {
+    setCategory(event.target.value);
+  };
+
   return (
     <Card>
       <CardContent>
@@ -64,6 +81,27 @@ const ProductsFilter = () => {
               value={productName}
               onChange={productNameHandler}
             />
+          </Grid>
+
+          <Grid item xs={12}>
+            <FormControl fullWidth>
+              <InputLabel id="select-category-label">Category</InputLabel>
+              <Select
+                id="select-category"
+                labelId="select-category-label"
+                label="category"
+                value={category}
+                onChange={categoryChangeHandler}
+              >
+                {categories.map(category => {
+                  return (
+                    <MenuItem key={category.value} value={category.value}>
+                      {category.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
           </Grid>
 
           <Grid item xs={12} md={12}>
@@ -113,7 +151,7 @@ const ProductsFilter = () => {
           size="small"
           startIcon={<SearchIcon />}
           component={Link}
-          to={`?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}`}
+          to={`?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}&category=${category}`}
           variant="outlined"
         >
           Filter

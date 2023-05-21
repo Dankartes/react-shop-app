@@ -10,31 +10,66 @@ import {
   IconButton,
   ButtonGroup,
   CardActionArea,
-  Button,
+  CardHeader,
 } from '@mui/material';
+import {
+  Bed,
+  Checkroom,
+  EmojiFoodBeverage,
+  Celebration,
+} from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
+import { categories } from './ProductsFilter';
 
-const SingleProduct = ({ id, name, price, image }) => {
+const SingleProduct = ({ id, categoryId, name, price, image }) => {
+  const displayHeader = () => {
+    switch (categoryId) {
+      case 1:
+        return { icon: <Bed />, color: 'green' };
+        break;
+      case 2:
+        return { icon: <Checkroom />, color: 'brown' };
+        break;
+
+      case 3:
+        return { icon: <EmojiFoodBeverage />, color: 'turquoise' };
+        break;
+
+      case 4:
+        return { icon: <Celebration />, color: 'yellow' };
+        break;
+    }
+  };
+
+  const categoryName = categories.find(
+    category => category.value === categoryId
+  ).name;
+
   return (
     <Card sx={{ maxHeight: 400 }}>
-      <Button component={Link} to={`/item/${id}`}>
-        Test
-      </Button>
-
-      <CardMedia
-        sx={{ height: 200, objectFit: 'contain' }}
-        image={image}
-        alt="product"
-        component="img"
+      <CardHeader
+        sx={{ color: displayHeader().color }}
+        title={categoryName}
+        avatar={displayHeader().icon}
       />
 
-      <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {name}
-        </Typography>
-        <Divider sx={{ backgroundColor: 'black' }}></Divider>
-      </CardContent>
+      <CardActionArea component={Link} to={`/item/${id}`}>
+        <CardMedia
+          sx={{ height: 200, objectFit: 'contain' }}
+          image={image}
+          alt="product"
+          component="img"
+        />
+
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            {name}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <Divider sx={{ backgroundColor: 'black' }}></Divider>
+
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ color: 'orange' }} variant="h5" component="div">
           {price}$

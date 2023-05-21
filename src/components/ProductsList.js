@@ -10,6 +10,7 @@ const ProductsList = ({ products }) => {
         name={product.name}
         price={product.price}
         image={product.image}
+        categoryId={product.categoryId}
       />
     </Grid>
   ));
