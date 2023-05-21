@@ -6,7 +6,6 @@ import HomePage from './HomePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './routes/RootLayout';
 import Products from './routes/Products';
-
 import ErrorPage from './routes/ErrorPage';
 import AddProduct from './routes/AddProduct';
 import SearchNotFound from './routes/SearchNotFound';
@@ -26,7 +25,6 @@ const router = createBrowserRouter([
       {
         path: '/products/:pageNumber',
         element: <Products />,
-
         errorElement: <SearchNotFound />,
       },
       {
@@ -34,7 +32,7 @@ const router = createBrowserRouter([
         element: <AddProduct />,
       },
       {
-        path: '/item/:productName',
+        path: '/item/:productId',
         element: <SingleProductDetails />,
       },
     ],

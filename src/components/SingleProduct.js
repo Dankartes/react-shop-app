@@ -15,10 +15,10 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 
-const SingleProduct = ({  name, price, image }) => {
+const SingleProduct = ({ id, name, price, image }) => {
   return (
     <Card sx={{ maxHeight: 400 }}>
-      <Button component={Link} to={`/item/${name}`}>
+      <Button component={Link} to={`/item/${id}`}>
         Test
       </Button>
 

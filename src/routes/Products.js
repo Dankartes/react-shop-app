@@ -3,15 +3,13 @@ import ProductsList from '../components/ProductsList';
 import ShopPagination from '../components/ShopPagination';
 import ProductsFilter from '../components/ProductsFilter';
 import { Grid } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchAllproducts } from '../store/index';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
 
 const Products = () => {
   // --logic for displaying different pages--
-  const dispatch = useDispatch();
+
   const products = useSelector(state => state.productsReducer.products);
 
   // filtering the products
@@ -41,11 +39,6 @@ const Products = () => {
 
   const slicedProducts = modifiedProducts.slice(from, to);
   const count = modifiedProducts.length;
-
-  // fetching products from redux
-  useEffect(() => {
-    dispatch(fetchAllproducts());
-  }, [dispatch]);
 
   return (
     <Grid container spacing={2}>

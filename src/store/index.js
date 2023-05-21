@@ -1,16 +1,24 @@
 import { createSlice, configureStore } from '@reduxjs/toolkit';
 
-const initialState = { products: [] };
+const initialState = { products: [], loading: false };
 const shopProductsSlice = createSlice({
   name: 'shopProducts',
   initialState,
   reducers: {
     fetchProducts(state, action) {
       state.products = action.payload;
+      state.loading = false;
     },
     addNewProduct(state, action) {
       const product = action.payload;
       state.products = [...state.products, product];
+      state.loading = false;
+    },
+    isLoading(state) {
+      state.loading = true;
+    },
+    stopLoading(state) {
+      state.loading = false;
     },
     removeProduct(state, action) {},
     editProduct(state, action) {},
@@ -21,6 +29,7 @@ const shopProductsSlice = createSlice({
 export const fetchAllproducts = () => {
   return async dispatch => {
     try {
+      dispatch(isLoading());
       const response = await fetch(
         'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json'
       );
@@ -32,6 +41,7 @@ export const fetchAllproducts = () => {
       dispatch(fetchProducts(fetchedProducts));
     } catch (error) {
       console.log(error);
+      dispatch(stopLoading());
     }
   };
 };
@@ -40,8 +50,9 @@ export const fetchAllproducts = () => {
 export const sendProductData = productData => {
   return async dispatch => {
     const newProduct = { ...productData };
-
+    console.log(newProduct);
     try {
+      dispatch(isLoading());
       await fetch(
         'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json',
         {
@@ -55,6 +66,7 @@ export const sendProductData = productData => {
       dispatch(addNewProduct(newProduct));
     } catch (error) {
       console.log(error);
+      dispatch(stopLoading());
     }
   };
 };
@@ -63,7 +75,13 @@ const store = configureStore({
   reducer: { productsReducer: shopProductsSlice.reducer },
 });
 
-export const { addNewProduct, removeProduct, editProduct, fetchProducts } =
-  shopProductsSlice.actions;
+export const {
+  addNewProduct,
+  removeProduct,
+  editProduct,
+  fetchProducts,
+  isLoading,
+  stopLoading,
+} = shopProductsSlice.actions;
 
 export default store;

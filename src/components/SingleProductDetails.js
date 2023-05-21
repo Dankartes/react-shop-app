@@ -2,14 +2,22 @@ import styles from './SingleProductDetails.module.css';
 import { Button, ButtonGroup, CardActions } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 
 const SingleProductDetails = () => {
-  return (
+  const { productId } = useParams();
+  const products = useSelector(state => state.productsReducer.products);
+
+  const currentProduct = products.find(product => product.id === productId);
+
+  const productDetails = currentProduct ? (
     <div className={styles['product-container']}>
       <div className={styles.imgBox}>
         <img
           style={{ objectFit: 'contain', height: 500 }}
-          src="image"
+          src={currentProduct.image}
           alt="Product"
         />
       </div>
@@ -17,16 +25,16 @@ const SingleProductDetails = () => {
       <div className={styles.details}>
         <div>
           <h2>
-            nume
+            {currentProduct.name}
             <br />
             <span>PLACEHOLDER</span>
           </h2>
-          <p>descr</p>
+          <p>{currentProduct.description}</p>
 
           <CardActions
             sx={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <h3>price$</h3>
+            <h3>{currentProduct.price}$</h3>
             <ButtonGroup>
               <Button variant="outlined" startIcon={<FavoriteIcon />}>
                 Favorite
@@ -44,7 +52,9 @@ const SingleProductDetails = () => {
         </div>
       </div>
     </div>
-  );
+  ) : "";
+
+  return productDetails;
 };
 
 // export const loader = async ({ params }) => {
@@ -58,8 +68,6 @@ const SingleProductDetails = () => {
 //     const data = response.json();
 
 //     data
-
-
 
 //   } catch (error) {
 //     console.log(error);
