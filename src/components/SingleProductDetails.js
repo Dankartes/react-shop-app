@@ -4,12 +4,17 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { categories } from './ProductsFilter';
 
 const SingleProductDetails = () => {
   const { productId } = useParams();
   const products = useSelector(state => state.productsReducer.products);
 
   const currentProduct = products.find(product => product.id === productId);
+
+  const categoryName = categories.find(
+    category => category.value === currentProduct.categoryId
+  ).name;
 
   const productDetails = currentProduct ? (
     <div className={styles['product-container']}>
@@ -26,7 +31,7 @@ const SingleProductDetails = () => {
           <h2>
             {currentProduct.name}
             <br />
-            <span>{currentProduct.category}</span>
+            <span>{categoryName}</span>
           </h2>
           <p>{currentProduct.description}</p>
 

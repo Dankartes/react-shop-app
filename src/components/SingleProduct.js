@@ -26,18 +26,18 @@ const SingleProduct = ({ id, categoryId, name, price, image }) => {
   const displayHeader = () => {
     switch (categoryId) {
       case 1:
-        return { icon: <Bed />, color: 'green' };
+        return <Bed />;
         break;
       case 2:
-        return { icon: <Checkroom />, color: 'brown' };
+        return <Checkroom />;
         break;
 
       case 3:
-        return { icon: <EmojiFoodBeverage />, color: 'turquoise' };
+        return <EmojiFoodBeverage />;
         break;
 
       case 4:
-        return { icon: <Celebration />, color: 'yellow' };
+        return <Celebration />;
         break;
     }
   };
@@ -49,11 +49,11 @@ const SingleProduct = ({ id, categoryId, name, price, image }) => {
   return (
     <Card sx={{ maxHeight: 400 }}>
       <CardHeader
-        sx={{ color: displayHeader().color }}
+        sx={{ color: 'orange' }}
         title={categoryName}
-        avatar={displayHeader().icon}
+        avatar={displayHeader()}
       />
-
+      <Divider sx={{ backgroundColor: 'black' }}></Divider>
       <CardActionArea component={Link} to={`/item/${id}`}>
         <CardMedia
           sx={{ height: 200, objectFit: 'contain' }}
