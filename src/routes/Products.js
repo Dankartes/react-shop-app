@@ -18,6 +18,8 @@ const Products = () => {
   const minPrice = +searchParams.get('min-price');
   const maxPrice = +searchParams.get('max-price');
   const categoryId = +searchParams.get('category');
+  const isFavorited = JSON.parse(searchParams.get('favorited'));
+
   let modifiedProducts = [...products];
 
   if (name) {
@@ -35,6 +37,12 @@ const Products = () => {
   if (minPrice && maxPrice) {
     modifiedProducts = modifiedProducts.filter(
       product => product.price >= minPrice && product.price <= maxPrice
+    );
+  }
+
+  if (isFavorited) {
+    modifiedProducts = modifiedProducts.filter(
+      product => product.favorited == isFavorited
     );
   }
 

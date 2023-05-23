@@ -21,8 +21,10 @@ import {
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import { categories } from './ProductsFilter';
+import { useDispatch } from 'react-redux';
+import { toggleFavoriteThunk } from '../store/index';
 
-const SingleProduct = ({ id, categoryId, name, price, image }) => {
+const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const displayHeader = () => {
     switch (categoryId) {
       case 1:
@@ -45,6 +47,12 @@ const SingleProduct = ({ id, categoryId, name, price, image }) => {
   const categoryName = categories.find(
     category => category.value === categoryId
   ).name;
+
+  const dispatch = useDispatch();
+
+  const addToFavoritesHandler = () => {
+    dispatch(toggleFavoriteThunk(id));
+  };
 
   return (
     <Card sx={{ maxHeight: 400 }}>
@@ -76,8 +84,11 @@ const SingleProduct = ({ id, categoryId, name, price, image }) => {
         </Typography>
 
         <ButtonGroup>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton
+            onClick={addToFavoritesHandler}
+            aria-label="add to favorites"
+          >
+            <FavoriteIcon sx={{ color: favorited ? 'red' : '' }} />
           </IconButton>
           <IconButton aria-label="add to cart">
             <ShoppingCartIcon />

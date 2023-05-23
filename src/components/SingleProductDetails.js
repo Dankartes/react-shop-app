@@ -12,9 +12,12 @@ const SingleProductDetails = () => {
 
   const currentProduct = products.find(product => product.id === productId);
 
-  const categoryName = categories.find(
-    category => category.value === currentProduct.categoryId
-  ).name;
+  let categoryName;
+
+  if (currentProduct)
+    categoryName = categories.find(
+      category => category.value === currentProduct.categoryId
+    ).name;
 
   const productDetails = currentProduct ? (
     <div className={styles['product-container']}>

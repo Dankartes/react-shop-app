@@ -2,7 +2,7 @@ import styles from './AddProduct.module.css';
 import { Card } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
-import { sendProductData } from '../store/index';
+import { addNewProductThunk } from '../store/index';
 
 const AddProduct = () => {
   const inputNameRef = useRef();
@@ -21,7 +21,7 @@ const AddProduct = () => {
     const enteredDescription = inputDescriptionRef.current.value;
 
     dispatch(
-      sendProductData({
+      addNewProductThunk({
         name: enteredName,
         price: enteredPrice,
         image: enteredImage,

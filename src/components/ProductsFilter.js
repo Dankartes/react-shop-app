@@ -10,6 +10,8 @@ import {
   Select,
   MenuItem,
   FormControl,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -26,9 +28,10 @@ export const categories = [
 
 const ProductsFilter = () => {
   const [[minPrice, maxPrice], setPriceInterval] = useState([1, 1000]);
-
   const [productName, setProductName] = useState('');
   const [category, setCategory] = useState('');
+  const [isFavorited, setisFavorited] = useState(false);
+
   const navigation = useNavigate();
 
   const priceChangeHandler = (event, newInterval) => {
@@ -60,14 +63,22 @@ const ProductsFilter = () => {
   };
 
   const clearFilterHandler = () => {
-    navigation('/products/1');
-    setPriceInterval([1, 1000]);
     setProductName('');
+    setCategory('');
+    setPriceInterval([1, 1000]);
+    setisFavorited(false);
+    navigation('/products/1');
   };
 
   const categoryChangeHandler = event => {
     setCategory(event.target.value);
   };
+
+  const toggleFavoriteHandler = () => {
+    setisFavorited(!isFavorited);
+  };
+
+  const filterLink = `?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}&category=${category}&favorited=${isFavorited}`;
 
   return (
     <Card>
@@ -136,6 +147,24 @@ const ProductsFilter = () => {
               label="max"
             />
           </Grid>
+
+          <Grid item xs={12}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onClick={toggleFavoriteHandler}
+                  checked={isFavorited}
+                  // sx={{
+
+                  //   '&.Mui-checked': {
+                  //     color: 'red',
+                  //   },
+                  // }}
+                />
+              }
+              label="Added to favorites"
+            />
+          </Grid>
         </Grid>
       </CardContent>
       <CardActions sx={{ justifyContent: 'flex-end' }}>
@@ -151,7 +180,7 @@ const ProductsFilter = () => {
           size="small"
           startIcon={<SearchIcon />}
           component={Link}
-          to={`?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}&category=${category}`}
+          to={filterLink}
           variant="outlined"
         >
           Filter

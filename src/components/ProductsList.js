@@ -11,6 +11,7 @@ const ProductsList = ({ products }) => {
         price={product.price}
         image={product.image}
         categoryId={product.categoryId}
+        favorited={product.favorited}
       />
     </Grid>
   ));
