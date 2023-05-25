@@ -1,5 +1,5 @@
 // import styles from './Products.module.css';
-import ProductsList from '../components/ProductsList';
+import ProductsList from '../components/Products/ProductsList';
 import ShopPagination from '../components/ShopPagination';
 import ProductsFilter from '../components/ProductsFilter';
 import { Grid } from '@mui/material';

@@ -2,7 +2,7 @@ import styles from './AddProduct.module.css';
 import { Card } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
-import { addNewProductThunk } from '../store/index';
+import { addNewProductThunk } from '../store/Products/products-actions';
 
 const AddProduct = () => {
   const inputNameRef = useRef();

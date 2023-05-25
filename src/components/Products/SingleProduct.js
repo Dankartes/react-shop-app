@@ -20,9 +20,9 @@ import {
 } from '@mui/icons-material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
-import { categories } from './ProductsFilter';
+import { categories } from '../ProductsFilter';
 import { useDispatch } from 'react-redux';
-import { toggleFavoriteThunk } from '../store/index';
+import { toggleFavoriteThunk } from '../../store/Products/products-actions';
 
 const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const displayHeader = () => {

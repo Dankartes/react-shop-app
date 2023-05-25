@@ -4,7 +4,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { categories } from './ProductsFilter';
+import { categories } from '../ProductsFilter';
 
 const SingleProductDetails = () => {
   const { productId } = useParams();

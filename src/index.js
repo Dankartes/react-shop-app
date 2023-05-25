@@ -6,12 +6,13 @@ import HomePage from './HomePage';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './routes/RootLayout';
 import Products from './routes/Products';
-import ErrorPage from './routes/ErrorPage';
+// import ErrorPage from './routes/ErrorPage';
 import AddProduct from './routes/AddProduct';
 import SearchNotFound from './routes/SearchNotFound';
-import SingleProductDetails from './components/SingleProductDetails';
+import SingleProductDetails from './components/Products/SingleProductDetails';
 import { Provider } from 'react-redux';
 import store from './store/index';
+import Cart from './routes/Cart';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: '/item/:productId',
         element: <SingleProductDetails />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
     ],
   },
