@@ -1,7 +1,14 @@
+import { Card, CardHeader, Divider, CardContent } from '@mui/material';
+import CartList from '../components/Cart/CartList';
+
 const Cart = () => {
   return (
     <>
-      <p>TEST CART</p>
+      <Card>
+        <CardHeader title="Shopping Cart" />
+        <Divider sx={{ backgroundColor: 'black' }} />
+        <CartList />
+      </Card>
     </>
   );
 };

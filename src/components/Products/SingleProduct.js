@@ -23,6 +23,7 @@ import { Link } from 'react-router-dom';
 import { categories } from '../ProductsFilter';
 import { useDispatch } from 'react-redux';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
+import { addToCart } from '../../store/Cart/cart-slice';
 
 const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const displayHeader = () => {
@@ -52,6 +53,10 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
 
   const addToFavoritesHandler = () => {
     dispatch(toggleFavoriteThunk(id));
+  };
+
+  const addToCartHandler = () => {
+    dispatch(addToCart(id));
   };
 
   return (
@@ -90,7 +95,11 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
           >
             <FavoriteIcon sx={{ color: favorited ? 'red' : '' }} />
           </IconButton>
-          <IconButton aria-label="add to cart">
+          <IconButton
+            onClick={addToCartHandler}
+            color="primary"
+            aria-label="add to cart"
+          >
             <ShoppingCartIcon />
           </IconButton>
         </ButtonGroup>

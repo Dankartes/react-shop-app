@@ -1,18 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = { products: [], loading: false };
-const shopProductsSlice = createSlice({
+const productsSlice = createSlice({
   name: 'shopProducts',
   initialState,
   reducers: {
     fetchProducts(state, action) {
       state.products = action.payload;
-      state.loading = false;
     },
     addNewProduct(state, action) {
       const product = action.payload;
       state.products = [...state.products, product];
-      state.loading = false;
     },
     toggleFavorite(state, action) {
       const productId = action.payload;
@@ -33,7 +31,7 @@ const shopProductsSlice = createSlice({
   },
 });
 
-export default shopProductsSlice;
+export default productsSlice;
 
 export const {
   fetchProducts,
@@ -43,6 +41,4 @@ export const {
   stopLoading,
   removeProduct,
   editProduct,
-} = shopProductsSlice.actions;
-
-
+} = productsSlice.actions;
