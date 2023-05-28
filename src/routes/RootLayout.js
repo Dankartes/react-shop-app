@@ -3,15 +3,17 @@ import NavigationBar from '../components/Navigation/NavigationBar';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchProductsThunk } from '../store/Products/products-actions';
-// import { useSelector } from 'react-redux';
-// import { CircularProgress } from '@mui/material';
+import { fetchCartThunk } from '../store/Cart/cart-actions';
 
 const RootLayout = () => {
   const dispatch = useDispatch();
-  // const isLoading = useSelector(state => state.productsReducer.loading);
-  // fetching products from redux
+
   useEffect(() => {
     dispatch(fetchProductsThunk());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCartThunk());
   }, [dispatch]);
 
   return (

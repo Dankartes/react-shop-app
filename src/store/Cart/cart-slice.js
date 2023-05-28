@@ -6,34 +6,52 @@ const cartSlice = createSlice({
   name: 'shopCart',
   initialState,
   reducers: {
-    addToCart(state, action) {
-      const newProductId = action.payload;
-      const existingIndex = state.cart.findIndex(
-        product => product.id === newProductId
+    fetchCart(state, action) {
+      const totalQuantity = state.cart.reduce(
+        (totalQuantity, item) => totalQuantity + item.quantity,
+        0
       );
+      state.cart = action.payload;
+      state.allProductsQuantity = totalQuantity;
+    },
+    addNewItem(state, action) {
+      const newItem = {
+        id: action.payload.id,
+        productId: action.payload.productId,
+        quantity: 1,
+      };
+      state.cart.push(newItem);
+      state.allProductsQuantity++;
+      console.log(state.cart);
+    },
 
-      if (existingIndex !== -1) state.cart[existingIndex].quantity++;
-      else state.cart = [...state.cart, { id: action.payload, quantity: 1 }];
+    addExistingItem(state, action) {
+      const productId = action.payload;
+      const existingItem = state.cart.find(
+        item => item.productId === productId
+      );
+      existingItem.quantity++;
       state.allProductsQuantity++;
     },
-    removeFromCart(state, action) {
-      const removedId = action.payload;
-      const removedIndex = state.cart.findIndex(
-        product => product.id === removedId
-      );
 
-      if (state.cart[removedIndex].quantity === 1)
-        state.cart.splice(removedIndex, 1);
-      else state.cart[removedIndex].quantity--;
+    removeItem(state, action) {
+      const productId = action.payload;
+      const existingItem = state.cart.find(
+        item => item.productId === productId
+      );
+      existingItem.quantity--;
       state.allProductsQuantity--;
     },
+
     deleteItem(state, action) {
-      const deletedId = action.payload;
+      const productId = action.payload;
       const deletedIndex = state.cart.findIndex(
-        product => product.id === deletedId
+        item => item.productId === productId
       );
+
       state.allProductsQuantity =
         state.allProductsQuantity - state.cart[deletedIndex].quantity;
+
       state.cart.splice(deletedIndex, 1);
     },
   },
@@ -41,4 +59,10 @@ const cartSlice = createSlice({
 
 export default cartSlice;
 
-export const { addToCart, removeFromCart, deleteItem } = cartSlice.actions;
+export const {
+  fetchCart,
+  addNewItem,
+  addExistingItem,
+  removeItem,
+  deleteItem,
+} = cartSlice.actions;

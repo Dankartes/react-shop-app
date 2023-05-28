@@ -68,15 +68,12 @@ export const toggleFavoriteThunk = productId => {
         ...products.find(product => product.id === productId),
       };
 
-      delete favoritedProduct.id;
-
       await fetch(
         `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`,
         {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            ...favoritedProduct,
             favorited: !favoritedProduct.favorited,
           }),
         }

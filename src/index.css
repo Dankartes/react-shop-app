@@ -12,3 +12,12 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.swiper,
+.swiper-container {
+  padding-bottom: 20px !important;
+}
+
+.swiper-pagination {
+  bottom: -5px !important;
+}

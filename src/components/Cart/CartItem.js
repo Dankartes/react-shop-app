@@ -4,25 +4,33 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
-import {
-  addToCart,
-  removeFromCart,
-  deleteItem,
-} from '../../store/Cart/cart-slice';
+import { deleteItem } from '../../store/Cart/cart-slice';
 
-const CartItem = ({ id, image, name, categoryName, price, quantity }) => {
+import {
+  addToCartThunk,
+  removeFromCartThunk,
+} from '../../store/Cart/cart-actions';
+
+const CartItem = ({
+  productId,
+  image,
+  name,
+  categoryName,
+  price,
+  quantity,
+}) => {
   const dispatch = useDispatch();
 
   const addItemHandler = () => {
-    dispatch(addToCart(id));
+    dispatch(addToCartThunk(productId));
   };
 
   const removeItemHandler = () => {
-    dispatch(removeFromCart(id));
+    dispatch(removeFromCartThunk(productId));
   };
 
   const deleteItemHandler = () => {
-    dispatch(deleteItem(id));
+    dispatch(removeFromCartThunk(productId, true));
   };
 
   return (
@@ -38,12 +46,12 @@ const CartItem = ({ id, image, name, categoryName, price, quantity }) => {
           <img src={image} alt="product" />
         </div>
 
-        <div className={styles['description']}>
+        <div className={styles.description}>
           <span>{name}</span>
           <span>{categoryName}</span>
         </div>
 
-        <div className={styles['quantity']}>
+        <div className={styles.quantity}>
           <IconButton onClick={removeItemHandler} aria-label="remove item">
             <RemoveIcon />
           </IconButton>
@@ -53,7 +61,7 @@ const CartItem = ({ id, image, name, categoryName, price, quantity }) => {
           </IconButton>
         </div>
 
-        <div className={styles['total-price']}>{price * quantity}$</div>
+        <div className={styles['total-price']}>${price * quantity}</div>
       </div>
       <Divider sx={{ backgroundColor: 'black' }} />
     </>

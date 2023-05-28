@@ -23,7 +23,7 @@ import { Link } from 'react-router-dom';
 import { categories } from '../ProductsFilter';
 import { useDispatch } from 'react-redux';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
-import { addToCart } from '../../store/Cart/cart-slice';
+import { addToCartThunk } from '../../store/Cart/cart-actions';
 
 const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const displayHeader = () => {
@@ -56,7 +56,7 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   };
 
   const addToCartHandler = () => {
-    dispatch(addToCart(id));
+    dispatch(addToCartThunk(id));
   };
 
   return (
@@ -85,7 +85,7 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
 
       <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography sx={{ color: 'orange' }} variant="h5" component="div">
-          {price}$
+          ${price}
         </Typography>
 
         <ButtonGroup>

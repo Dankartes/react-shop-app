@@ -41,7 +41,7 @@ const SingleProductDetails = () => {
           <CardActions
             sx={{ display: 'flex', justifyContent: 'space-between' }}
           >
-            <h3>{currentProduct.price}$</h3>
+            <h3>${currentProduct.price}</h3>
             <ButtonGroup>
               <Button variant="outlined" startIcon={<FavoriteIcon />}>
                 Favorite
