@@ -1,5 +1,9 @@
 // import styles from './SingleProduct.module.scss';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { enqueueSnackbar } from 'notistack';
 import {
   Card,
   CardContent,
@@ -18,7 +22,6 @@ import {
   EmojiFoodBeverage,
   Celebration,
 } from '@mui/icons-material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from 'react-router-dom';
 import { categories } from '../ProductsFilter';
 import { useDispatch } from 'react-redux';
@@ -52,10 +55,36 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const dispatch = useDispatch();
 
   const addToFavoritesHandler = () => {
+    let messageInfo = {
+      message: 'Product was added to favorites!',
+      icon: <FavoriteIcon style={{ marginRight: '5px' }} />,
+      variant: 'success',
+    };
+
+    if (favorited)
+      messageInfo = {
+        message: 'Product was removed from favorites!',
+        icon: <HeartBrokenIcon style={{ marginRight: '5px' }} />,
+        variant: 'error',
+      };
+
+    enqueueSnackbar(messageInfo.message, {
+      variant: messageInfo.variant,
+      iconVariant: {
+        [messageInfo.variant]: messageInfo.icon,
+      },
+    });
+
     dispatch(toggleFavoriteThunk(id));
   };
 
   const addToCartHandler = () => {
+    enqueueSnackbar('Product was added to cart!', {
+      variant: 'success',
+      iconVariant: {
+        success: <AddShoppingCartIcon style={{ marginRight: '5px' }} />,
+      },
+    });
     dispatch(addToCartThunk(id));
   };
 

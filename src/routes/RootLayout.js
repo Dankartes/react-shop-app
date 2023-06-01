@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchProductsThunk } from '../store/Products/products-actions';
 import { fetchCartThunk } from '../store/Cart/cart-actions';
+import { SnackbarProvider, closeSnackbar } from 'notistack';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 const RootLayout = () => {
   const dispatch = useDispatch();
@@ -22,6 +25,22 @@ const RootLayout = () => {
       <div style={{ margin: '1%', display: 'flex', justifyContent: 'center' }}>
         <Outlet />
       </div>
+      <SnackbarProvider
+        autoHideDuration={1500}
+        maxSnack={3}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        action={snackbarId => (
+          <IconButton
+            sx={{ paddingLeft: 0 }}
+            onClick={() => closeSnackbar(snackbarId)}
+          >
+            <CloseIcon />
+          </IconButton>
+        )}
+      />
     </>
   );
 };

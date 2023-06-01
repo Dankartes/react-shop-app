@@ -1,10 +1,17 @@
 import styles from './SingleProductDetails.module.css';
 import { Button, ButtonGroup, CardActions } from '@mui/material';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { categories } from '../ProductsFilter';
+import { addToCartThunk } from '../../store/Cart/cart-actions';
+import { toggleFavoriteThunk } from '../../store/Products/products-actions';
+import { useDispatch } from 'react-redux';
+
+import { enqueueSnackbar } from 'notistack';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 
 const SingleProductDetails = () => {
   const { productId } = useParams();
@@ -18,6 +25,41 @@ const SingleProductDetails = () => {
     categoryName = categories.find(
       category => category.value === currentProduct.categoryId
     ).name;
+
+  const dispatch = useDispatch();
+
+  const addToCartHandler = () => {
+    enqueueSnackbar('Product was added to cart!', {
+      variant: 'success',
+      iconVariant: {
+        success: <AddShoppingCartIcon style={{ marginRight: '5px' }} />,
+      },
+    });
+    dispatch(addToCartThunk(productId));
+  };
+
+  const toggleFavoriteHandler = () => {
+    let messageInfo = {
+      message: 'Product was added to favorites!',
+      icon: <FavoriteIcon style={{ marginRight: '5px' }} />,
+      variant: 'success',
+    };
+
+    if (currentProduct.favorited)
+      messageInfo = {
+        message: 'Product was removed from favorites!',
+        icon: <HeartBrokenIcon style={{ marginRight: '5px' }} />,
+        variant: 'error',
+      };
+
+    enqueueSnackbar(messageInfo.message, {
+      variant: messageInfo.variant,
+      iconVariant: {
+        [messageInfo.variant]: messageInfo.icon,
+      },
+    });
+    dispatch(toggleFavoriteThunk(productId));
+  };
 
   const productDetails = currentProduct ? (
     <div className={styles['product-container']}>
@@ -43,7 +85,20 @@ const SingleProductDetails = () => {
           >
             <h3>${currentProduct.price}</h3>
             <ButtonGroup>
-              <Button variant="outlined" startIcon={<FavoriteIcon />}>
+              <Button
+                sx={
+                  currentProduct.favorited && {
+                    color: 'red',
+                    borderColor: 'red',
+                    '&:hover': {
+                      borderColor: 'red',
+                    },
+                  }
+                }
+                variant="outlined"
+                startIcon={<FavoriteIcon />}
+                onClick={toggleFavoriteHandler}
+              >
                 Favorite
               </Button>
               <Button
@@ -51,6 +106,7 @@ const SingleProductDetails = () => {
                 variant="contained"
                 disableElevation
                 startIcon={<ShoppingCartIcon />}
+                onClick={addToCartHandler}
               >
                 Add
               </Button>
