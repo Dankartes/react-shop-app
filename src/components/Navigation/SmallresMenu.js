@@ -18,7 +18,6 @@ const SmallResMenu = () => {
 
   return (
     <>
-      {' '}
       <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
         <IconButton onClick={handleOpenNavMenu} color="inherit">
           <MenuIcon />
@@ -52,24 +51,30 @@ const SmallResMenu = () => {
           ))}
         </Menu>
       </Box>
-      <Home sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
       <Typography
         variant="h5"
         component={Link}
         to="/"
         sx={{
-          mr: 2,
           display: { xs: 'flex', md: 'none' },
           flexGrow: 1,
-          letterSpacing: '2px',
-          color: 'white',
           textDecoration: 'none',
+          color: 'white',
           '&:hover': {
-            color: 'orange',
+            color: 'orange !important',
           },
         }}
       >
-        Home
+        <span
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Home /> Home
+        </span>
       </Typography>
     </>
   );

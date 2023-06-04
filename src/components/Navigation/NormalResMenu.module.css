@@ -1,0 +1,14 @@
+.active-menu-link {
+  color: orange;
+  text-decoration: none;
+}
+
+.menu-link {
+  color: white;
+  text-decoration: none;
+}
+
+.menu-link:hover,
+.active-menu-link:hover {
+  color: orange;
+}

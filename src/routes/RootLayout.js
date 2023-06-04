@@ -7,6 +7,8 @@ import { fetchCartThunk } from '../store/Cart/cart-actions';
 import { SnackbarProvider, closeSnackbar } from 'notistack';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import BottomNavigation from '../components/Navigation/BottomNavigation';
+
 
 const RootLayout = () => {
   const dispatch = useDispatch();
@@ -20,11 +22,14 @@ const RootLayout = () => {
   }, [dispatch]);
 
   return (
-    <>
+    <div
+      style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}
+    >
       <NavigationBar />
       <div style={{ margin: '1%', display: 'flex', justifyContent: 'center' }}>
         <Outlet />
       </div>
+      <BottomNavigation />
       <SnackbarProvider
         autoHideDuration={1500}
         maxSnack={3}
@@ -34,14 +39,20 @@ const RootLayout = () => {
         }}
         action={snackbarId => (
           <IconButton
-            sx={{ paddingLeft: 0 }}
+            sx={{
+              color: 'white',
+              paddingLeft: '0px',
+              '&:hover': {
+                backgroundColor: 'transparent',
+              },
+            }}
             onClick={() => closeSnackbar(snackbarId)}
           >
             <CloseIcon />
           </IconButton>
         )}
       />
-    </>
+    </div>
   );
 };
 

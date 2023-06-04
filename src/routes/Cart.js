@@ -1,4 +1,4 @@
-import { Card, CardHeader, Divider, CardContent, Grid } from '@mui/material';
+import { Card, CardHeader, Divider, Grid } from '@mui/material';
 import CartList from '../components/Cart/CartList';
 import { useSelector } from 'react-redux';
 import SingleProduct from '../components/Products/SingleProduct';

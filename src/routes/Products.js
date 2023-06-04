@@ -1,7 +1,7 @@
 // import styles from './Products.module.css';
 import ProductsList from '../components/Products/ProductsList';
-import ShopPagination from '../components/ShopPagination';
-import ProductsFilter from '../components/ProductsFilter';
+import ShopPagination from '../components/Products/ShopPagination';
+import ProductsFilter from '../components/Products/ProductsFilter';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';

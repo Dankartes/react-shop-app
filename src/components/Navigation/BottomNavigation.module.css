@@ -1,0 +1,38 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(36, 31, 31);
+  color: white;
+  margin-top: auto;
+}
+
+.top-sections {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+.bottom-sections {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer a {
+  text-decoration: none;
+  color: white;
+}
+
+.footer a:hover {
+  color: rgba(25, 118, 210, 255);
+}
+
+.footer section {
+  padding: 10px;
+}

@@ -1,7 +1,7 @@
 import { AppBar, Container, Toolbar } from '@mui/material';
 import CartButton from './CartButton';
 import NormalResMenu from './NormalResMenu';
-import SmallResMenu from './SmallresMenu';
+import SmallResMenu from './SmallResMenu';
 import { useSelector } from 'react-redux';
 
 export const pageLinks = [

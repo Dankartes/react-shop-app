@@ -23,7 +23,7 @@ import {
   Celebration,
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import { categories } from '../ProductsFilter';
+import { categories } from './ProductsFilter';
 import { useDispatch } from 'react-redux';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
 import { addToCartThunk } from '../../store/Cart/cart-actions';

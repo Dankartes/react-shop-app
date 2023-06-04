@@ -2,7 +2,7 @@ import styles from './SingleProductDetails.module.css';
 import { Button, ButtonGroup, CardActions } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { categories } from '../ProductsFilter';
+import { categories } from '../Products/ProductsFilter';
 import { addToCartThunk } from '../../store/Cart/cart-actions';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
 import { useDispatch } from 'react-redux';

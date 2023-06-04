@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { categories } from '../ProductsFilter';
+import { categories } from '../Products/ProductsFilter';
 import CartItem from './CartItem';
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { Button, Box, Card, CardContent } from '@mui/material';
