@@ -8,10 +8,13 @@ import { SnackbarProvider, closeSnackbar } from 'notistack';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import BottomNavigation from '../components/Navigation/BottomNavigation';
-
+import DialogBox from '../components/UI/DialogBox';
+import ReactDOM from 'react-dom';
 
 const RootLayout = () => {
   const dispatch = useDispatch();
+
+  const overlaysPortal = document.getElementById('overlays');
 
   useEffect(() => {
     dispatch(fetchProductsThunk());
@@ -52,6 +55,7 @@ const RootLayout = () => {
           </IconButton>
         )}
       />
+      <DialogBox />
     </div>
   );
 };

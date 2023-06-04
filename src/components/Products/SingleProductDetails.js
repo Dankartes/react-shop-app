@@ -6,12 +6,12 @@ import { categories } from '../Products/ProductsFilter';
 import { addToCartThunk } from '../../store/Cart/cart-actions';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
 import { useDispatch } from 'react-redux';
-
 import { enqueueSnackbar } from 'notistack';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
+import { CircularProgress } from '@mui/material';
 
 const SingleProductDetails = () => {
   const { productId } = useParams();
@@ -61,7 +61,9 @@ const SingleProductDetails = () => {
     dispatch(toggleFavoriteThunk(productId));
   };
 
-  const productDetails = currentProduct ? (
+  if (!currentProduct) return <CircularProgress />;
+
+  return (
     <div className={styles['product-container']}>
       <div className={styles.imgBox}>
         <img
@@ -115,11 +117,7 @@ const SingleProductDetails = () => {
         </div>
       </div>
     </div>
-  ) : (
-    ''
   );
-
-  return productDetails;
 };
 
 // export const loader = async ({ params }) => {

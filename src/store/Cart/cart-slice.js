@@ -54,6 +54,12 @@ const cartSlice = createSlice({
 
       state.cart.splice(deletedIndex, 1);
     },
+    isLoading(state) {
+      state.loading = true;
+    },
+    stopLoading(state) {
+      state.loading = false;
+    },
   },
 });
 
@@ -65,4 +71,6 @@ export const {
   addExistingItem,
   removeItem,
   deleteItem,
+  isLoading,
+  stopLoading,
 } = cartSlice.actions;

@@ -2,16 +2,17 @@ import { Card, CardHeader, Divider, Grid } from '@mui/material';
 import CartList from '../components/Cart/CartList';
 import { useSelector } from 'react-redux';
 import SingleProduct from '../components/Products/SingleProduct';
-
-// import './Cart.module.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Autoplay } from 'swiper';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Cart = () => {
   const products = useSelector(state => state.productsReducer.products);
+
+  if (!products.length) return <CircularProgress />;
 
   return (
     <>

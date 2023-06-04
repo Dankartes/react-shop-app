@@ -3,6 +3,8 @@ import { Card } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { useRef } from 'react';
 import { addNewProductThunk } from '../store/Products/products-actions';
+import { Button } from '@mui/material';
+import { useState } from 'react';
 
 const AddProduct = () => {
   const inputNameRef = useRef();
@@ -11,23 +13,29 @@ const AddProduct = () => {
   const inputDescriptionRef = useRef();
 
   const dispatch = useDispatch();
+  const [imageUpload, setImageUpload] = useState(null);
+
+  const imageUploadHandler = event => {
+    setImageUpload(event.target.files[0]);
+  };
 
   const submitHandler = event => {
     event.preventDefault();
 
-    const enteredName = inputNameRef.current.value;
-    const enteredPrice = inputPriceRef.current.value;
-    const enteredImage = inputImageRef.current.value;
-    const enteredDescription = inputDescriptionRef.current.value;
+    // const enteredName = inputNameRef.current.value;
+    // const enteredPrice = inputPriceRef.current.value;
+    // const enteredImage = inputImageRef.current.value;
+    // const enteredDescription = inputDescriptionRef.current.value;
 
-    dispatch(
-      addNewProductThunk({
-        name: enteredName,
-        price: enteredPrice,
-        image: enteredImage,
-        description: enteredDescription,
-      })
-    );
+    // dispatch(
+    //   addNewProductThunk({
+    //     name: enteredName,
+    //     price: enteredPrice,
+    //     image: enteredImage,
+    //     description: enteredDescription,
+    //   })
+    // );
+    console.log(imageUpload);
   };
 
   return (
@@ -39,10 +47,15 @@ const AddProduct = () => {
         <label htmlFor="price">Price:</label>
         <input name="price" type="number" id="price" ref={inputPriceRef} />
 
-        <label htmlFor="image" id="image">
+        {/* <label htmlFor="image" id="image">
           Image
         </label>
-        <input name="image" type="text" id="image" ref={inputImageRef} />
+        <input name="image" type="text" id="image" ref={inputImageRef} /> */}
+
+        <Button variant="contained" component="label">
+          Upload File
+          <input onChange={imageUploadHandler} type="file" hidden />
+        </Button>
 
         <label htmlFor="description">Description:</label>
         <textarea

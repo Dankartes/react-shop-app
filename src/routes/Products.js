@@ -1,4 +1,3 @@
-// import styles from './Products.module.css';
 import ProductsList from '../components/Products/ProductsList';
 import ShopPagination from '../components/Products/ShopPagination';
 import ProductsFilter from '../components/Products/ProductsFilter';
@@ -6,11 +5,13 @@ import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const Products = () => {
   // --logic for displaying different pages--
 
   const products = useSelector(state => state.productsReducer.products);
+  const isLoading = useSelector(state => state.productsReducer.loading);
 
   // filtering the products
   const [searchParams] = useSearchParams();
@@ -56,20 +57,25 @@ const Products = () => {
   const count = modifiedProducts.length;
 
   return (
-    <Grid container spacing={2}>
-      <Grid item md={3} xs={12}>
-        <ProductsFilter />
-      </Grid>
+    <>
+      {!isLoading && (
+        <Grid container spacing={2}>
+          <Grid item md={3} xs={12}>
+            <ProductsFilter />
+          </Grid>
 
-      <Grid item md={9} xs={12}>
-        <ProductsList products={slicedProducts} />
-        <ShopPagination
-          count={count}
-          pageSize={pageSize}
-          currentPage={pageNumber}
-        />
-      </Grid>
-    </Grid>
+          <Grid item md={9} xs={12}>
+            <ProductsList products={slicedProducts} />
+            <ShopPagination
+              count={count}
+              pageSize={pageSize}
+              currentPage={pageNumber}
+            />
+          </Grid>
+        </Grid>
+      )}
+      {isLoading && <CircularProgress />}
+    </>
   );
 };
 

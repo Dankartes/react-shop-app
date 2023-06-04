@@ -8,6 +8,8 @@ import {
   editProduct,
 } from './products-slice';
 
+import { openDialogBox } from '../Dialog/dialog-slice';
+
 // action creator thunk for fetching all products
 export const fetchProductsThunk = () => {
   return async dispatch => {
@@ -24,8 +26,12 @@ export const fetchProductsThunk = () => {
       dispatch(fetchProducts(fetchedProducts));
       dispatch(stopLoading());
     } catch (error) {
-      console.log(error);
       dispatch(stopLoading());
+      dispatch(
+        openDialogBox(
+          `Cannot load products at this time, please try again later!`
+        )
+      );
     }
   };
 };
@@ -59,8 +65,6 @@ export const addNewProductThunk = productData => {
 export const toggleFavoriteThunk = productId => {
   return async (dispatch, getState) => {
     try {
-      dispatch(isLoading());
-
       const stateBefore = getState();
       const products = stateBefore.productsReducer.products;
 
@@ -79,10 +83,12 @@ export const toggleFavoriteThunk = productId => {
         }
       );
       dispatch(toggleFavorite(productId));
-      dispatch(stopLoading());
     } catch (error) {
-      console.log(error);
-      dispatch(stopLoading());
+      dispatch(
+        openDialogBox(
+          `Cannot use the favorite feature at this time, please try again later!`
+        )
+      );
     }
   };
 };

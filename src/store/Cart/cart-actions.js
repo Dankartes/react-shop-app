@@ -4,11 +4,15 @@ import {
   removeItem,
   deleteItem,
   fetchCart,
+  isLoading,
+  stopLoading,
 } from './cart-slice';
+import { openDialogBox } from '../Dialog/dialog-slice';
 
 export const fetchCartThunk = () => {
   return async dispatch => {
     try {
+      dispatch(isLoading());
       const result = await fetch(
         'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart.json'
       );
@@ -21,8 +25,14 @@ export const fetchCartThunk = () => {
           quantity: data[key].quantity,
         });
       dispatch(fetchCart(cartItems));
+      dispatch(stopLoading());
     } catch (error) {
-      console.log(error);
+      dispatch(stopLoading());
+      dispatch(
+        openDialogBox(
+          `Cannot load the cart at this time, please try again later!`
+        )
+      );
     }
   };
 };
@@ -58,12 +68,15 @@ export const addToCartThunk = productId => {
         dispatch(addNewItem({ id: data.name, productId: productId }));
       }
     } catch (error) {
-      console.log(error);
+      dispatch(
+        openDialogBox(
+          `Cannot add products to cart at this time, please try again later!`
+        )
+      );
     }
   };
 };
 
-//second
 export const removeFromCartThunk = (productId, toDelete = false) => {
   return async (dispatch, getState) => {
     try {
@@ -92,7 +105,11 @@ export const removeFromCartThunk = (productId, toDelete = false) => {
         dispatch(removeItem(productId));
       }
     } catch (error) {
-      console.log(error);
+      dispatch(
+        openDialogBox(
+          `Cannot remove products from cart at this time, please try again later!`
+        )
+      );
     }
   };
 };
