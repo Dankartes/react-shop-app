@@ -13,6 +13,8 @@ import SingleProductDetails from './components/Products/SingleProductDetails';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import Cart from './routes/Cart';
+import AdminPanel from './routes/AdminPanel';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: '/cart',
         element: <Cart />,
+      },
+      {
+        path: '/admin-panel/:pageNumber',
+        element: <AdminPanel />,
       },
     ],
   },

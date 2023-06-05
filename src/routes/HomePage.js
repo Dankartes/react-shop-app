@@ -41,7 +41,7 @@ const cardsData = [
 
 function HomePage() {
   return (
-    <Grid sx={{ maxWidth: '1500px' }} container>
+    <Grid sx={{ maxWidth: 'lg' }} container>
       {cardsData.map((card, index) => (
         <HomeCard
           title={card.title}

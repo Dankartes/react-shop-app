@@ -1,12 +1,18 @@
 import { Pagination } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import NoProducts from './NoProducts';
+import NoProducts from '../Products/NoProducts';
 
-const ShopPagination = ({ count, pageSize, currentPage }) => {
+const ProductsPagination = ({
+  count,
+  pageSize,
+  currentPage,
+  admin = false,
+}) => {
   const navigate = useNavigate();
 
   const pageChangeHandler = (event, page) => {
-    navigate(`/products/${page}`);
+    if (admin) navigate(`/admin-panel/${page}`);
+    else navigate(`/products/${page}`);
   };
 
   return (
@@ -27,7 +33,7 @@ const ShopPagination = ({ count, pageSize, currentPage }) => {
   );
 };
 
-export default ShopPagination;
+export default ProductsPagination;
 
 // old loader code
 // export const loader = async ({ params, request }) => {

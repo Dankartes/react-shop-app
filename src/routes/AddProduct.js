@@ -198,7 +198,6 @@ const AddProduct = () => {
 
           <Grid item md={12} xs={12}>
             <TextField
-              value=""
               onChange={categoryRemoveValHandler}
               type="text"
               select
@@ -256,7 +255,7 @@ const AddProduct = () => {
                 {validations.imageVal.message}
               </FormHelperText>
             )}
-            {imageName}
+            <span>{imageName}</span>
           </Grid>
         </Grid>
       </CardContent>

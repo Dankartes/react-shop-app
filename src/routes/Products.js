@@ -1,5 +1,5 @@
 import ProductsList from '../components/Products/ProductsList';
-import ShopPagination from '../components/Products/ShopPagination';
+import ProductsPagination from '../components/UI/ProductsPagination';
 import ProductsFilter from '../components/Products/ProductsFilter';
 import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
@@ -66,7 +66,7 @@ const Products = () => {
 
           <Grid item md={9} xs={12}>
             <ProductsList products={slicedProducts} />
-            <ShopPagination
+            <ProductsPagination
               count={count}
               pageSize={pageSize}
               currentPage={pageNumber}
