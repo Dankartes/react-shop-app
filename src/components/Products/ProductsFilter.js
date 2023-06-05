@@ -98,6 +98,7 @@ const ProductsFilter = () => {
             <FormControl fullWidth>
               <InputLabel id="select-category-label">Category</InputLabel>
               <Select
+                name="select-category"
                 id="select-category"
                 labelId="select-category-label"
                 label="category"
@@ -150,16 +151,12 @@ const ProductsFilter = () => {
 
           <Grid item xs={12}>
             <FormControlLabel
+              id="favorite"
+              name="favorite"
               control={
                 <Checkbox
                   onClick={toggleFavoriteHandler}
                   checked={isFavorited}
-                  // sx={{
-
-                  //   '&.Mui-checked': {
-                  //     color: 'red',
-                  //   },
-                  // }}
                 />
               }
               label="Added to favorites"

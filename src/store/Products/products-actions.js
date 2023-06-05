@@ -39,7 +39,7 @@ export const fetchProductsThunk = () => {
 // action creator thunk for adding a product to firebase
 export const addNewProductThunk = productData => {
   return async dispatch => {
-    const newProduct = { ...productData };
+    const newProduct = { ...productData, favorited: false };
     try {
       dispatch(isLoading());
       await fetch(

@@ -16,7 +16,7 @@ const Cart = () => {
 
   return (
     <>
-      <Grid sx={{ maxWidth: '800px' }} container spacing={2}>
+      <Grid sx={{ maxWidth: 'md' }} container spacing={2}>
         <Grid item xs={12}>
           <Card>
             <CardHeader title="Shopping Cart" />
