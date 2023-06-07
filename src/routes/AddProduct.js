@@ -85,6 +85,9 @@ const AddProduct = () => {
     initialValState
   );
 
+  const [name, setName] = useState('');
+
+  const formRef = useRef();
   const inputNameRef = useRef();
   const inputPriceRef = useRef();
   const inputImageRef = useRef();
@@ -92,14 +95,17 @@ const AddProduct = () => {
   const inputCategoryRef = useRef();
 
   const dispatch = useDispatch();
-  const [imageName, setImageName] = useState('');
+  const [imagePreview, setImagePreview] = useState('');
 
-  const setImageNameHandler = event => {
-    setImageName(event.target.files[0].name);
+  const setImagePreviewHandler = async event => {
+    const imagePreviewFile = event.target.files[0];
+    const imagePreview = await toBase64(imagePreviewFile);
+    setImagePreview(imagePreview);
     dispatchVal({ type: 'RESET', fieldVal: 'imageVal' });
   };
 
-  const nameRemoveValHandler = () => {
+  const nameRemoveValHandler = event => {
+    setName(event.target.value);
     dispatchVal({ type: 'RESET', fieldVal: 'nameVal' });
   };
   const priceRemoveValHandler = () => {
@@ -158,21 +164,37 @@ const AddProduct = () => {
             categoryId: enteredCategoryId,
           })
         );
+
+        formRef.current.reset();
+        inputCategoryRef.current.select.clearValue();
+
+        setImagePreview('');
+        console.log(inputCategoryRef.current.value);
       } catch (error) {
-        dispatch(openDialogBox('Cannot add product, please try again later!'));
+        dispatch(
+          openDialogBox({
+            message: 'Cannot add product, please try again later!',
+            title: 'Error',
+          })
+        );
       }
     }
   };
 
   return (
-    <Card onSubmit={submitHandler} component="form" sx={{ maxWidth: 'md' }}>
+    <Card
+      ref={formRef}
+      onSubmit={submitHandler}
+      component="form"
+      sx={{ maxWidth: 'md' }}
+    >
       <CardContent>
         <Grid container spacing={2}>
           <Grid item md={8} xs={12}>
             <TextField
+              value={name}
               onChange={nameRemoveValHandler}
               type="text"
-              inputRef={inputNameRef}
               id="name"
               name="name"
               label="Name"
@@ -242,7 +264,7 @@ const AddProduct = () => {
             >
               Upload Photo
               <input
-                onChange={setImageNameHandler}
+                onChange={setImagePreviewHandler}
                 ref={inputImageRef}
                 id="imageUpload"
                 type="file"
@@ -255,7 +277,13 @@ const AddProduct = () => {
                 {validations.imageVal.message}
               </FormHelperText>
             )}
-            <span>{imageName}</span>
+            {imagePreview && (
+              <img
+                style={{ height: 'auto', width: '150px' }}
+                src={imagePreview}
+                alt="product"
+              />
+            )}
           </Grid>
         </Grid>
       </CardContent>

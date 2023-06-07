@@ -4,11 +4,13 @@ import {
   toggleFavorite,
   isLoading,
   stopLoading,
-  removeProduct,
+  deleteProduct,
   editProduct,
 } from './products-slice';
-
 import { openDialogBox } from '../Dialog/dialog-slice';
+import { enqueueSnackbar } from 'notistack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
 
 // action creator thunk for fetching all products
 export const fetchProductsThunk = () => {
@@ -54,8 +56,19 @@ export const addNewProductThunk = productData => {
       );
       dispatch(addNewProduct(newProduct));
       dispatch(stopLoading());
+      enqueueSnackbar('Product was added successfully!', {
+        variant: 'success',
+        iconVariant: {
+          success: <AddIcon style={{ marginRight: '5px' }} />,
+        },
+      });
     } catch (error) {
-      console.log(error);
+      dispatch(
+        openDialogBox({
+          message: `Cannot add product at this time, please try again later!`,
+          title: 'Error',
+        })
+      );
       dispatch(stopLoading());
     }
   };
@@ -65,6 +78,7 @@ export const addNewProductThunk = productData => {
 export const toggleFavoriteThunk = productId => {
   return async (dispatch, getState) => {
     try {
+      dispatch(isLoading());
       const stateBefore = getState();
       const products = stateBefore.productsReducer.products;
 
@@ -83,12 +97,45 @@ export const toggleFavoriteThunk = productId => {
         }
       );
       dispatch(toggleFavorite(productId));
+      dispatch(stopLoading());
     } catch (error) {
       dispatch(
         openDialogBox(
           `Cannot use the favorite feature at this time, please try again later!`
         )
       );
+      dispatch(stopLoading());
+    }
+  };
+};
+
+export const deleteProductThunk = productId => {
+  return async dispatch => {
+    try {
+      dispatch(isLoading());
+      await fetch(
+        `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`,
+        {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
+      dispatch(deleteProduct(productId));
+      dispatch(stopLoading());
+      enqueueSnackbar('Product was deleted successfully!', {
+        variant: 'success',
+        iconVariant: {
+          success: <DeleteIcon style={{ marginRight: '5px' }} />,
+        },
+      });
+    } catch (error) {
+      dispatch(
+        openDialogBox({
+          message: `Cannot delete product at this time, please try again later!`,
+          title: 'Error',
+        })
+      );
+      dispatch(stopLoading());
     }
   };
 };

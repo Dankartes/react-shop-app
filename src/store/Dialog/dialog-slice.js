@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { message: '', isOpen: false };
+const initialState = {
+  message: '',
+  title: '',
+  isOpen: false,
+  confirmFunction: '',
+  confirmFunctionPayload: null,
+};
 
 const dialogSlice = createSlice({
   name: 'shopDialog',
@@ -8,10 +14,15 @@ const dialogSlice = createSlice({
   reducers: {
     openDialogBox(state, action) {
       state.isOpen = true;
-      state.message = action.payload;
+      state.title = action.payload.title;
+      state.message = action.payload.message;
+      state.confirmFunction = action.payload.confirmFunction;
+      state.confirmFunctionPayload = action.payload.confirmFunctionPayload;
     },
     closeDialogBox(state) {
       state.isOpen = false;
+      state.confirmFunction = '';
+      state.confirmFunctionPayload = null;
     },
   },
 });

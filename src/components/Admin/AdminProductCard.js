@@ -11,11 +11,28 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { categories } from '../Products/ProductsFilter';
+import { deleteProductThunk } from '../../store/Products/products-actions';
+import { useDispatch } from 'react-redux';
+import { openDialogBox } from '../../store/Dialog/dialog-slice';
 
 const AdminProductCard = ({ id, image, name, categoryId }) => {
   const categoryName = categories.find(
     category => category.value === categoryId
   ).name;
+
+  const dispatch = useDispatch();
+
+  const deleteProductHandler = () => {
+    dispatch(
+      openDialogBox({
+        message: 'Are you sure you want to permanently delete this product?',
+        title: 'Confirmation',
+        confirmFunction: 'deleteProduct',
+        confirmFunctionPayload: id,
+      })
+    );
+    // dispatch(deleteProductThunk(id));
+  };
 
   return (
     <Card sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -37,7 +54,7 @@ const AdminProductCard = ({ id, image, name, categoryId }) => {
           <IconButton>
             <EditIcon />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={deleteProductHandler}>
             <DeleteIcon />
           </IconButton>
         </CardActions>

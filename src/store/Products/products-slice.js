@@ -26,7 +26,13 @@ const productsSlice = createSlice({
       state.loading = false;
     },
 
-    removeProduct(state, action) {},
+    deleteProduct(state, action) {
+      const deletedId = action.payload;
+      const deletedIndex = state.products.findIndex(
+        product => product.id === deletedId
+      );
+      state.products.splice(deletedIndex, 1);
+    },
     editProduct(state, action) {},
   },
 });
@@ -39,6 +45,6 @@ export const {
   toggleFavorite,
   isLoading,
   stopLoading,
-  removeProduct,
+  deleteProduct,
   editProduct,
 } = productsSlice.actions;
