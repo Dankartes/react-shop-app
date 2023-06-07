@@ -11,7 +11,6 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { categories } from '../Products/ProductsFilter';
-import { deleteProductThunk } from '../../store/Products/products-actions';
 import { useDispatch } from 'react-redux';
 import { openDialogBox } from '../../store/Dialog/dialog-slice';
 
@@ -31,7 +30,6 @@ const AdminProductCard = ({ id, image, name, categoryId }) => {
         confirmFunctionPayload: id,
       })
     );
-    // dispatch(deleteProductThunk(id));
   };
 
   return (

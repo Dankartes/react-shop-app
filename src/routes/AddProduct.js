@@ -9,7 +9,6 @@ import {
   FormHelperText,
 } from '@mui/material';
 import { useDispatch } from 'react-redux';
-import { useRef } from 'react';
 import { addNewProductThunk } from '../store/Products/products-actions';
 import toBase64 from '../functions/toBase64';
 import { openDialogBox } from '../store/Dialog/dialog-slice';
@@ -86,90 +85,81 @@ const AddProduct = () => {
   );
 
   const [name, setName] = useState('');
-
-  const formRef = useRef();
-  const inputNameRef = useRef();
-  const inputPriceRef = useRef();
-  const inputImageRef = useRef();
-  const inputDescriptionRef = useRef();
-  const inputCategoryRef = useRef();
+  const [price, setPrice] = useState('');
+  const [categoryId, setCategoryId] = useState(null);
+  const [description, setDescription] = useState('');
+  const [imageFile, setImageFile] = useState('');
+  const [image, setImage] = useState('');
 
   const dispatch = useDispatch();
-  const [imagePreview, setImagePreview] = useState('');
 
-  const setImagePreviewHandler = async event => {
-    const imagePreviewFile = event.target.files[0];
-    const imagePreview = await toBase64(imagePreviewFile);
-    setImagePreview(imagePreview);
+  const changeImageHandler = async event => {
+    setImageFile(event.target.files[0]);
+
+    const imagePreview = await toBase64(event.target.files[0]);
+    setImage(imagePreview);
     dispatchVal({ type: 'RESET', fieldVal: 'imageVal' });
   };
 
-  const nameRemoveValHandler = event => {
+  const changeNameHandler = event => {
     setName(event.target.value);
     dispatchVal({ type: 'RESET', fieldVal: 'nameVal' });
   };
-  const priceRemoveValHandler = () => {
+  const changePriceHandler = event => {
+    setPrice(event.target.value);
     dispatchVal({ type: 'RESET', fieldVal: 'priceVal' });
   };
 
-  const categoryRemoveValHandler = () => {
+  const changeCategoryIdHandler = event => {
+    setCategoryId(event.target.value);
     dispatchVal({ type: 'RESET', fieldVal: 'categoryVal' });
   };
 
-  const descrRemoveValHandler = () => {
+  const changeDescrHandler = event => {
+    setDescription(event.target.value);
     dispatchVal({ type: 'RESET', fieldVal: 'descriptionVal' });
   };
 
   const submitHandler = async event => {
     event.preventDefault();
 
-    const enteredImageFile = inputImageRef.current.files[0];
-    const enteredName = inputNameRef.current.value;
-    const enteredPrice = inputPriceRef.current.value;
-    const enteredDescription = inputDescriptionRef.current.value;
-    const enteredCategoryId = inputCategoryRef.current.value;
-
     let formIsValid = true;
 
-    if (!enteredName) {
+    if (!name) {
       dispatchVal({ type: 'NAME_INVAL' });
       formIsValid = false;
     }
-    if (!enteredPrice) {
+    if (!price) {
       dispatchVal({ type: 'PRICE_INVAL' });
       formIsValid = false;
     }
-    if (!enteredCategoryId) {
+    if (!categoryId) {
       dispatchVal({ type: 'CATEGORY_INVAL' });
       formIsValid = false;
     }
-    if (!enteredDescription) dispatchVal({ type: 'DESCR_INVAL' });
-    if (
-      !enteredImageFile ||
-      !acceptedImageTypes.includes(enteredImageFile.type)
-    ) {
+    if (!description) dispatchVal({ type: 'DESCR_INVAL' });
+    if (!imageFile || !acceptedImageTypes.includes(imageFile.type)) {
       dispatchVal({ type: 'IMG_INVAL' });
       formIsValid = false;
     }
 
     if (formIsValid) {
       try {
-        const enteredImage = await toBase64(enteredImageFile);
         dispatch(
           addNewProductThunk({
-            name: enteredName,
-            price: enteredPrice,
-            image: enteredImage,
-            description: enteredDescription,
-            categoryId: enteredCategoryId,
+            name,
+            price,
+            image,
+            description,
+            categoryId,
           })
         );
-
-        formRef.current.reset();
-        inputCategoryRef.current.select.clearValue();
-
-        setImagePreview('');
-        console.log(inputCategoryRef.current.value);
+        setName('');
+        setPrice('');
+        setCategoryId('');
+        setDescription('');
+        setImageFile('');
+        setImage('');
       } catch (error) {
         dispatch(
           openDialogBox({
@@ -182,18 +172,13 @@ const AddProduct = () => {
   };
 
   return (
-    <Card
-      ref={formRef}
-      onSubmit={submitHandler}
-      component="form"
-      sx={{ maxWidth: 'md' }}
-    >
+    <Card onSubmit={submitHandler} component="form" sx={{ maxWidth: 'md' }}>
       <CardContent>
         <Grid container spacing={2}>
           <Grid item md={8} xs={12}>
             <TextField
               value={name}
-              onChange={nameRemoveValHandler}
+              onChange={changeNameHandler}
               type="text"
               id="name"
               name="name"
@@ -206,9 +191,9 @@ const AddProduct = () => {
 
           <Grid item md={4} xs={12}>
             <TextField
-              onChange={priceRemoveValHandler}
+              value={price}
+              onChange={changePriceHandler}
               type="number"
-              inputRef={inputPriceRef}
               id="price"
               name="price"
               label="Price"
@@ -220,10 +205,10 @@ const AddProduct = () => {
 
           <Grid item md={12} xs={12}>
             <TextField
-              onChange={categoryRemoveValHandler}
+              value={categoryId}
+              onChange={changeCategoryIdHandler}
               type="text"
               select
-              inputRef={inputCategoryRef}
               id="category"
               name="category"
               label="Category"
@@ -241,9 +226,9 @@ const AddProduct = () => {
 
           <Grid item md={12} xs={12}>
             <TextField
-              onChange={descrRemoveValHandler}
+              value={description}
+              onChange={changeDescrHandler}
               type="text"
-              inputRef={inputDescriptionRef}
               id="description"
               name="description"
               label="Description"
@@ -264,8 +249,7 @@ const AddProduct = () => {
             >
               Upload Photo
               <input
-                onChange={setImagePreviewHandler}
-                ref={inputImageRef}
+                onChange={changeImageHandler}
                 id="imageUpload"
                 type="file"
                 accept="image/png, image/jpeg"
@@ -277,10 +261,10 @@ const AddProduct = () => {
                 {validations.imageVal.message}
               </FormHelperText>
             )}
-            {imagePreview && (
+            {image && (
               <img
                 style={{ height: 'auto', width: '150px' }}
-                src={imagePreview}
+                src={image}
                 alt="product"
               />
             )}
