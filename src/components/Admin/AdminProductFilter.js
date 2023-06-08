@@ -30,7 +30,7 @@ const AdminProductFilter = () => {
   const clearFilterHandler = () => {
     setName('');
     setCategoryId('');
-    navigation('/admin-panel/1');
+    navigation('/admin-panel/page/1');
   };
 
   const filterLink = `?name=${name}&categoryId=${categoryId}`;

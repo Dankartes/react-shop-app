@@ -11,7 +11,7 @@ const ProductsPagination = ({
   const navigate = useNavigate();
 
   const pageChangeHandler = (event, page) => {
-    if (admin) navigate(`/admin-panel/${page}`);
+    if (admin) navigate(`/admin-panel/page/${page}`);
     else navigate(`/products/${page}`);
   };
 

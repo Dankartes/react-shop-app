@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { products: [], loading: false };
+const initialState = { products: [], loading: false, editedProduct: null };
 const productsSlice = createSlice({
   name: 'shopProducts',
   initialState,
@@ -9,8 +9,8 @@ const productsSlice = createSlice({
       state.products = action.payload;
     },
     addNewProduct(state, action) {
-      const product = action.payload;
-      state.products = [...state.products, product];
+      const newProduct = action.payload;
+      state.products = [...state.products, newProduct];
     },
     toggleFavorite(state, action) {
       const productId = action.payload;
@@ -33,7 +33,15 @@ const productsSlice = createSlice({
       );
       state.products.splice(deletedIndex, 1);
     },
-    editProduct(state, action) {},
+
+    editProduct(state, action) {
+      const editedId = action.payload.productId;
+      const editedData = action.payload.productData;
+      const editedProduct = state.products.find(
+        product => product.id === editedId
+      );
+      Object.assign(editedProduct, editedData);
+    },
   },
 });
 
@@ -46,5 +54,7 @@ export const {
   isLoading,
   stopLoading,
   deleteProduct,
+  fetchEditedProduct,
+  clearEditedProduct,
   editProduct,
 } = productsSlice.actions;

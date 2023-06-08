@@ -13,8 +13,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { categories } from '../Products/ProductsFilter';
 import { useDispatch } from 'react-redux';
 import { openDialogBox } from '../../store/Dialog/dialog-slice';
+import { Link } from 'react-router-dom';
 
-const AdminProductCard = ({ id, image, name, categoryId }) => {
+const AdminProductCard = ({ id, image, name, categoryId, pageNumber }) => {
   const categoryName = categories.find(
     category => category.value === categoryId
   ).name;
@@ -49,7 +50,10 @@ const AdminProductCard = ({ id, image, name, categoryId }) => {
           </Typography>
         </CardContent>
         <CardActions sx={{ justifyContent: 'flex-end' }}>
-          <IconButton>
+          <IconButton
+            to={`/edit-product/${id}?pag=${pageNumber}`}
+            component={Link}
+          >
             <EditIcon />
           </IconButton>
           <IconButton onClick={deleteProductHandler}>

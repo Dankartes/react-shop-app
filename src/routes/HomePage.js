@@ -44,6 +44,7 @@ function HomePage() {
     <Grid sx={{ maxWidth: 'lg' }} container>
       {cardsData.map((card, index) => (
         <HomeCard
+          key={card.title}
           title={card.title}
           details={card.details}
           image={card.image}

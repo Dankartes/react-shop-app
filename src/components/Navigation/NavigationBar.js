@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 
 export const pageLinks = [
   { page: 'Products', navLink: '/products/1' },
-  { page: 'Admin panel', navLink: '/admin-panel/1' },
+  { page: 'Admin panel', navLink: '/admin-panel/page/1' },
 ];
 
 const NavigationBar = () => {

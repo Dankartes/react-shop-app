@@ -7,13 +7,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './routes/RootLayout';
 import Products from './routes/Products';
 // import ErrorPage from './routes/ErrorPage';
-import AddProduct from './routes/AddProduct';
 import SearchNotFound from './routes/SearchNotFound';
 import SingleProductDetails from './components/Products/SingleProductDetails';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import Cart from './routes/Cart';
 import AdminPanel from './routes/AdminPanel';
+import EditProduct from './routes/EditProduct';
+import AddProduct from './routes/AddProduct';
 
 const router = createBrowserRouter([
   {
@@ -30,10 +31,7 @@ const router = createBrowserRouter([
         element: <Products />,
         errorElement: <SearchNotFound />,
       },
-      {
-        path: '/add-product',
-        element: <AddProduct />,
-      },
+
       {
         path: '/item/:productId',
         element: <SingleProductDetails />,
@@ -43,8 +41,22 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
-        path: '/admin-panel/:pageNumber',
+        path: '/admin-panel',
         element: <AdminPanel />,
+        children: [
+          {
+            path: 'page/:pageNumber',
+            element: <Cart />,
+          },
+        ],
+      },
+      {
+        path: '/add-product',
+        element: <AddProduct />,
+      },
+      {
+        path: '/edit-product/:productId',
+        element: <EditProduct />,
       },
     ],
   },

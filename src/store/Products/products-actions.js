@@ -11,6 +11,7 @@ import { openDialogBox } from '../Dialog/dialog-slice';
 import { enqueueSnackbar } from 'notistack';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
 
 // action creator thunk for fetching all products
 export const fetchProductsThunk = () => {
@@ -44,7 +45,7 @@ export const addNewProductThunk = productData => {
     const newProduct = { ...productData, favorited: false };
     try {
       dispatch(isLoading());
-      await fetch(
+      const result = await fetch(
         'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products.json',
         {
           method: 'POST',
@@ -54,6 +55,10 @@ export const addNewProductThunk = productData => {
           body: JSON.stringify(newProduct),
         }
       );
+      const data = await result.json();
+
+      newProduct.id = data.name;
+
       dispatch(addNewProduct(newProduct));
       dispatch(stopLoading());
       enqueueSnackbar('Product was added successfully!', {
@@ -132,6 +137,38 @@ export const deleteProductThunk = productId => {
       dispatch(
         openDialogBox({
           message: `Cannot delete product at this time, please try again later!`,
+          title: 'Error',
+        })
+      );
+      dispatch(stopLoading());
+    }
+  };
+};
+
+export const editProductThunk = (productId, productData) => {
+  return async dispatch => {
+    try {
+      dispatch(isLoading());
+      await fetch(
+        `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/products/${productId}.json`,
+        {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(productData),
+        }
+      );
+      dispatch(editProduct({ productId, productData }));
+      dispatch(stopLoading());
+      enqueueSnackbar('Product was edited successfully!', {
+        variant: 'success',
+        iconVariant: {
+          success: <EditIcon style={{ marginRight: '5px' }} />,
+        },
+      });
+    } catch (error) {
+      dispatch(
+        openDialogBox({
+          message: `Cannot edit product at this time, please try again later!`,
           title: 'Error',
         })
       );
