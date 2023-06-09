@@ -1,5 +1,5 @@
 Welcome to my first React application. This is a shop that I built specifically to practice different React concepts, such as JSX, components, and hooks. In addition to React, I'm using React Router for implementing client-side routing, as well as Firebase and Redux for managing and storing data. Throughout the application, you will also find many components from the MUI library, which have been instrumental in organizing and styling this application. Of course, there are many more libraries and resources that have been utilized. If you want to learn more about them, you can check the links at the bottom of this file.
-NOTE: this application is still a work in progress
+NOTE: this application is still a work in progress.
 
 Here are some pictures from the application:
 ![Screenshot 2023-06-09 133633](https://github.com/Dankartes/react-shop-app/assets/111695120/8513f266-4a19-42df-bf3f-3347267eaf1c)
