@@ -20,12 +20,21 @@ Responsive:
 ![Screenshot 2023-06-09 133801](https://github.com/Dankartes/react-shop-app/assets/111695120/b46ec27c-58c8-4f2a-8ef8-04beb7318111)
 
 Links:
+<br/>
 https://react.dev/
+<br/>
 https://redux.js.org/
+<br/>
 https://reactrouter.com/en/main
+<br/>
 https://firebase.google.com/
+<br/>
 https://swiperjs.com/
+<br/>
 https://mui.com/
+<br/>
 https://notistack.com/
+<br/>
 https://react-icons.github.io/react-icons/
+<br/>
 https://pixabay.com/
