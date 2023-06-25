@@ -15,6 +15,20 @@ import Cart from './routes/Cart';
 import AdminPanel from './routes/AdminPanel';
 import EditProduct from './routes/EditProduct';
 import AddProduct from './routes/AddProduct';
+import SignUp from './routes/SignUp';
+import AuthForm from './components/Auth/AuthForm';
+import { initializeApp } from 'firebase/app';
+
+export const firebaseConfig = initializeApp({
+  apiKey: 'AIzaSyC-UfzY6CtjYi8m0cz7PW0at_BaekN9X4g',
+  authDomain: 'react-http-b5876.firebaseapp.com',
+  databaseURL:
+    'https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'react-http-b5876',
+  storageBucket: 'react-http-b5876.appspot.com',
+  messagingSenderId: '537238956412',
+  appId: '1:537238956412:web:062c68cdb6f7655450dcf9',
+});
 
 const router = createBrowserRouter([
   {
@@ -25,6 +39,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: '/login',
+        element: <AuthForm />,
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
       },
       {
         path: '/products/:pageNumber',

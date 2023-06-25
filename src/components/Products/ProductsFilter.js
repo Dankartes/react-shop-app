@@ -78,7 +78,7 @@ const ProductsFilter = () => {
     setisFavorited(!isFavorited);
   };
 
-  const filterLink = `?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}&category=${category}&favorited=${isFavorited}`;
+  const filterLink = `/products/1?name=${productName}&min-price=${minPrice}&max-price=${maxPrice}&category=${category}&favorited=${isFavorited}`;
 
   return (
     <Card>

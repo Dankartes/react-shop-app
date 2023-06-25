@@ -33,7 +33,7 @@ const AdminProductFilter = () => {
     navigation('/admin-panel/page/1');
   };
 
-  const filterLink = `?name=${name}&categoryId=${categoryId}`;
+  const filterLink = `/admin-panel/page/1?name=${name}&categoryId=${categoryId}`;
 
   return (
     <Card>

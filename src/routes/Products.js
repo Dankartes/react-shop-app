@@ -5,13 +5,11 @@ import { Grid } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { useSearchParams } from 'react-router-dom';
-import CircularProgress from '@mui/material/CircularProgress';
 
 const Products = () => {
   // --logic for displaying different pages--
 
   const products = useSelector(state => state.productsReducer.products);
-  const isLoading = useSelector(state => state.productsReducer.loading);
 
   // filtering the products
   const [searchParams] = useSearchParams();
@@ -43,7 +41,7 @@ const Products = () => {
 
   if (isFavorited) {
     modifiedProducts = modifiedProducts.filter(
-      product => product.favorited == isFavorited
+      product => product.favorited === isFavorited
     );
   }
 
@@ -58,23 +56,20 @@ const Products = () => {
 
   return (
     <>
-      {!isLoading && (
-        <Grid container spacing={2}>
-          <Grid item md={3} xs={12}>
-            <ProductsFilter />
-          </Grid>
-
-          <Grid item md={9} xs={12}>
-            <ProductsList products={slicedProducts} />
-            <ProductsPagination
-              count={count}
-              pageSize={pageSize}
-              currentPage={pageNumber}
-            />
-          </Grid>
+      <Grid container spacing={2}>
+        <Grid item md={3} xs={12}>
+          <ProductsFilter />
         </Grid>
-      )}
-      {isLoading && <CircularProgress />}
+
+        <Grid item md={9} xs={12}>
+          <ProductsList products={slicedProducts} />
+          <ProductsPagination
+            count={count}
+            pageSize={pageSize}
+            currentPage={pageNumber}
+          />
+        </Grid>
+      </Grid>
     </>
   );
 };

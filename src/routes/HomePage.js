@@ -23,16 +23,19 @@ const cardsData = [
     image: applicationImage,
   },
   {
-    title: 'Features',
+    title: 'Features(work in progress)',
     details: (
       <p>
-        What can you expect to see here? Well, besides this home page there is
-        also a "Products" tab where you can check the catalogue. Here you can
-        filter different products, favorite them or add them to cart! You can
-        also click on them to see more details. Performing all of those actions
-        will trigger different UI changes such as receiving a message, an error,
-        or a color change. In the cart tab you can check your products
-        (alongside some more interesting things) and go to checkout.
+        What can you expect to see here? Well, besides this home page, there is
+        also a 'Products' tab where you can check the catalog. Here, you can
+        filter different products, favorite them, or add them to the cart! You
+        can also click on them to see more details. Performing all of those
+        actions will trigger different UI changes, such as receiving a message,
+        an error, or a color change. In the cart tab, you can check your
+        products (alongside some more interesting things) and proceed to
+        checkout. In the admin panel, you can view all the products and modify
+        them as you like by editing, deleting, or adding a new product. Also,
+        the application is fully responsive!
       </p>
     ),
     image: featuresImage,
