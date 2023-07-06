@@ -22,7 +22,6 @@ const cartSlice = createSlice({
       };
       state.cart.push(newItem);
       state.allProductsQuantity++;
-      console.log(state.cart);
     },
 
     addExistingItem(state, action) {

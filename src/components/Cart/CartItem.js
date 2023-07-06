@@ -5,7 +5,6 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
 
-
 import {
   addToCartThunk,
   removeFromCartThunk,

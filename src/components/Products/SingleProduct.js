@@ -85,7 +85,7 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
         success: <AddShoppingCartIcon style={{ marginRight: '5px' }} />,
       },
     });
-    dispatch(addToCartThunk(id));
+    dispatch(addToCartThunk(id, 'sUe6xHsFVEeeRoogehwl69q7DGg2'));
   };
 
   return (

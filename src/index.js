@@ -15,6 +15,8 @@ import Cart from './routes/Cart';
 import AdminPanel from './routes/AdminPanel';
 import EditProduct from './routes/EditProduct';
 import AddProduct from './routes/AddProduct';
+import AuthForm from './components/Auth/AuthForm';
+import SignUp from './routes/SignUp';
 
 const router = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage />,
+      },
+      {
+        path: '/login',
+        element: <AuthForm />,
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
       },
       {
         path: '/products/:pageNumber',

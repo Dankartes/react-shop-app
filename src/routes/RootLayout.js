@@ -10,19 +10,21 @@ import CloseIcon from '@mui/icons-material/Close';
 import BottomNavigation from '../components/Navigation/BottomNavigation';
 import DialogBox from '../components/UI/DialogBox';
 import ReactDOM from 'react-dom';
+import { useSelector } from 'react-redux';
 
 const RootLayout = () => {
   const dispatch = useDispatch();
+  // const overlaysPortal = document.getElementById('overlays');
 
-  const overlaysPortal = document.getElementById('overlays');
+  const userId = useSelector(state => state.authReducer.userId);
 
   useEffect(() => {
     dispatch(fetchProductsThunk());
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchCartThunk());
-  }, [dispatch]);
+    if (userId) dispatch(fetchCartThunk(userId));
+  }, [dispatch, userId]);
 
   return (
     <div

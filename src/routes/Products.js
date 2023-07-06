@@ -43,7 +43,7 @@ const Products = () => {
 
   if (isFavorited) {
     modifiedProducts = modifiedProducts.filter(
-      product => product.favorited == isFavorited
+      product => product.favorited === isFavorited
     );
   }
 
