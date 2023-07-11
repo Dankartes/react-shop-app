@@ -7,12 +7,8 @@ const cartSlice = createSlice({
   initialState,
   reducers: {
     fetchCart(state, action) {
-      const totalQuantity = state.cart.reduce(
-        (totalQuantity, item) => totalQuantity + item.quantity,
-        0
-      );
       state.cart = action.payload;
-      state.allProductsQuantity = totalQuantity;
+      state.allProductsQuantity = action.payload.length;
     },
     addNewItem(state, action) {
       const newItem = {

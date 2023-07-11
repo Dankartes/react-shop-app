@@ -9,12 +9,12 @@ import {
 } from './cart-slice';
 import { openDialogBox } from '../Dialog/dialog-slice';
 
-export const fetchCartThunk = userId => {
+export const fetchCartThunk = (userId, idToken) => {
   return async dispatch => {
     try {
       dispatch(isLoading());
       const result = await fetch(
-        `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart/${userId}.json`
+        `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart/${userId}.json?auth=${idToken}`
       );
       const data = await result.json();
       const cartItems = [];
@@ -37,7 +37,7 @@ export const fetchCartThunk = userId => {
   };
 };
 
-export const addToCartThunk = (productId, userId) => {
+export const addToCartThunk = (productId, userId, idToken) => {
   return async (dispatch, getState) => {
     try {
       const stateBefore = getState();
@@ -46,7 +46,7 @@ export const addToCartThunk = (productId, userId) => {
 
       if (existingItem) {
         await fetch(
-          `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart/${userId}/${existingItem.id}.json`,
+          `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart/${userId}/${existingItem.id}.json?auth=${idToken}`,
           {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
@@ -56,7 +56,7 @@ export const addToCartThunk = (productId, userId) => {
         dispatch(addExistingItem(productId));
       } else {
         const result = await fetch(
-          `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart/${userId}.json`,
+          `https://react-http-b5876-default-rtdb.europe-west1.firebasedatabase.app/cart/${userId}.json?auth=${idToken}`,
           {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

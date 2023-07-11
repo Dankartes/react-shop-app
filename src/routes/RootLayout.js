@@ -11,20 +11,29 @@ import BottomNavigation from '../components/Navigation/BottomNavigation';
 import DialogBox from '../components/UI/DialogBox';
 import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
+import { autoLogin } from '../store/Auth/auth-slice';
+import { useState } from 'react';
 
 const RootLayout = () => {
   const dispatch = useDispatch();
   // const overlaysPortal = document.getElementById('overlays');
 
-  const userId = useSelector(state => state.authReducer.userId);
+  console.log('rendering..');
+
+  const userData = useSelector(state => state.authReducer);
 
   useEffect(() => {
     dispatch(fetchProductsThunk());
+    dispatch(autoLogin());
   }, [dispatch]);
 
   useEffect(() => {
-    if (userId) dispatch(fetchCartThunk(userId));
-  }, [dispatch, userId]);
+    if (userData.userId) {
+      dispatch(fetchCartThunk(userData.userId, userData.idToken));
+    }
+  }, [dispatch, userData]);
+
+  console.log(userData.userId);
 
   return (
     <div

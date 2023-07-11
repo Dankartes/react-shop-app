@@ -2,20 +2,25 @@ import AdminProductList from '../components/Admin/AdminProductList';
 import { Grid, Button } from '@mui/material';
 import { useSelector } from 'react-redux';
 import ProductsPagination from '../components/UI/ProductsPagination';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import AdminProductFilter from '../components/Admin/AdminProductFilter';
 import { useSearchParams } from 'react-router-dom';
 import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export const adminPageSize = 9;
 
 const AdminPanel = () => {
+  const userId = useSelector(state => state.authReducer.userId);
   const products = useSelector(state => state.productsReducer.products);
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (!userId) navigate('/login');
+  }, [navigate, userId]);
 
   const [searchParams] = useSearchParams();
-
   const name = searchParams.get('name');
   const categoryId = +searchParams.get('categoryId');
 

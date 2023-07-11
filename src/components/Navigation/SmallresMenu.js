@@ -2,10 +2,10 @@ import { Home } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Typography, Box, IconButton, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { pageLinks } from './NavigationBar';
+// import { pageLinks } from './NavigationBar';
 import { useState } from 'react';
 
-const SmallResMenu = () => {
+const SmallResMenu = ({ pageLinks }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = event => {

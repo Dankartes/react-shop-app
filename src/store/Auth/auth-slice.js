@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { removeItem } from '../Cart/cart-slice';
 
 const initialState = {
   // email: null,
@@ -16,16 +17,36 @@ const authSlice = createSlice({
     authenticate(state, action) {
       const userData = action.payload;
 
+      console.log(userData);
+
       state.idToken = userData.idToken;
       state.userId = userData.localId;
       state.expiresIn = userData.expiresIn;
 
-      console.log(state.idToken, state.localId, state.expiresIn);
+      localStorage.setItem('idToken', state.idToken);
+      localStorage.setItem('userId', state.userId);
+      localStorage.setItem('expiresIn', state.expiresIn);
     },
-    logout(state, action) {},
+    autoLogin(state) {
+      const idToken = localStorage.getItem('idToken');
+      const userId = localStorage.getItem('userId');
+      const expiresIn = localStorage.getItem('expiresIn');
+
+      state.idToken = idToken;
+      state.userId = userId;
+      state.expiresIn = expiresIn;
+    },
+    logout(state) {
+      console.log('teswtft');
+      // state = {...initialState};
+      console.log(state);
+      localStorage.removeItem('idToken');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('expiresIn');
+    },
   },
 });
 
 export default authSlice;
 
-export const { authenticate, logout } = authSlice.actions;
+export const { authenticate, logout, autoLogin } = authSlice.actions;

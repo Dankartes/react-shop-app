@@ -24,7 +24,7 @@ import {
 } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import { categories } from './ProductsFilter';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
 import { addToCartThunk } from '../../store/Cart/cart-actions';
 
@@ -78,6 +78,8 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
     dispatch(toggleFavoriteThunk(id));
   };
 
+  const userData = useSelector(state => state.authReducer);
+
   const addToCartHandler = () => {
     enqueueSnackbar('Product was added to cart!', {
       variant: 'success',
@@ -85,7 +87,7 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
         success: <AddShoppingCartIcon style={{ marginRight: '5px' }} />,
       },
     });
-    dispatch(addToCartThunk(id, 'sUe6xHsFVEeeRoogehwl69q7DGg2'));
+    dispatch(addToCartThunk(id, userData.userId, userData.idToken));
   };
 
   return (
