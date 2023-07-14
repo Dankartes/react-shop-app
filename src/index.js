@@ -17,6 +17,7 @@ import EditProduct from './routes/EditProduct';
 import AddProduct from './routes/AddProduct';
 import AuthForm from './components/Auth/AuthForm';
 import SignUp from './routes/SignUp';
+import ResetPassword from './components/Auth/ResetPassword';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <AuthForm />,
+      },
+      {
+        path: '/reset-password',
+        element: <ResetPassword />,
       },
       {
         path: '/signup',

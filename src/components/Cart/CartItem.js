@@ -4,7 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import {
   addToCartThunk,
   removeFromCartThunk,
@@ -19,9 +19,10 @@ const CartItem = ({
   quantity,
 }) => {
   const dispatch = useDispatch();
+  const userData = useSelector(state => state.authReducer);
 
   const addItemHandler = () => {
-    dispatch(addToCartThunk(productId));
+    dispatch(addToCartThunk(productId, userData.userId, userData.idToken));
   };
 
   const removeItemHandler = () => {

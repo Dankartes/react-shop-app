@@ -10,7 +10,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { closeDialogBox } from '../../store/Dialog/dialog-slice';
 import { deleteProductThunk } from '../../store/Products/products-actions';
 
-
 const DialogBox = () => {
   const { isOpen, message, title, confirmFunction, confirmFunctionPayload } =
     useSelector(state => state.dialogReducer);
@@ -37,7 +36,7 @@ const DialogBox = () => {
   }
 
   return (
-    <Dialog open={isOpen} onClose={closeDialogHandler}>
+    <Dialog fullWidth open={isOpen} onClose={closeDialogHandler}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{message}</DialogContentText>

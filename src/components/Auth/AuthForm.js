@@ -16,8 +16,20 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { authenticateThunk } from '../../store/Auth/auth-actions';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const AuthForm = ({ signup }) => {
+  const isLoggedIn = useSelector(state => state.authReducer.userId);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate('/');
+    }
+  }, [isLoggedIn, navigate]);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -48,6 +60,7 @@ const AuthForm = ({ signup }) => {
       dispatch(authenticateThunk(email, password, true));
     } else {
       console.log('login');
+
       dispatch(authenticateThunk(email, password));
     }
   };
@@ -142,6 +155,20 @@ const AuthForm = ({ signup }) => {
                   &nbsp;Sign Up
                 </Link>
               )}
+            </Typography>
+            <Typography
+              component="h1"
+              variant="subtitle1"
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                textDecoration: 'none',
+              }}
+            >
+              Forgot your password?
+              <Link to="/reset-password" style={{ textDecoration: 'none' }}>
+                &nbsp;Click here
+              </Link>
             </Typography>
           </Grid>
         </Grid>

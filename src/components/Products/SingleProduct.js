@@ -1,6 +1,5 @@
 // import styles from './SingleProduct.module.scss';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { enqueueSnackbar } from 'notistack';
@@ -27,24 +26,25 @@ import { categories } from './ProductsFilter';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavoriteThunk } from '../../store/Products/products-actions';
 import { addToCartThunk } from '../../store/Cart/cart-actions';
+import PersonIcon from '@mui/icons-material/Person';
 
 const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const displayHeader = () => {
     switch (categoryId) {
       case 1:
         return <Bed />;
-        break;
+
       case 2:
         return <Checkroom />;
-        break;
 
       case 3:
         return <EmojiFoodBeverage />;
-        break;
 
       case 4:
         return <Celebration />;
-        break;
+
+      default:
+        return null;
     }
   };
 
@@ -81,13 +81,15 @@ const SingleProduct = ({ id, categoryId, name, price, image, favorited }) => {
   const userData = useSelector(state => state.authReducer);
 
   const addToCartHandler = () => {
-    enqueueSnackbar('Product was added to cart!', {
-      variant: 'success',
-      iconVariant: {
-        success: <AddShoppingCartIcon style={{ marginRight: '5px' }} />,
-      },
-    });
-    dispatch(addToCartThunk(id, userData.userId, userData.idToken));
+    if (userData.userId)
+      dispatch(addToCartThunk(id, userData.userId, userData.idToken));
+    else
+      enqueueSnackbar('You must be logged in to add products to your cart!', {
+        variant: 'error',
+        iconVariant: {
+          error: <PersonIcon style={{ marginRight: '5px' }} />,
+        },
+      });
   };
 
   return (

@@ -3,16 +3,11 @@ import { Typography, Box, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, NavLink } from 'react-router-dom';
-// import { pageLinks } from './NavigationBar';
+import { pageLinks } from './NavigationBar';
 import styles from './NormalResMenu.module.css';
 
-const NormalResMenu = ({ pageLinks }) => {
-  const userId = useSelector(state => state.authReducer.userId);
-
-  useEffect(() => {
-    if (!userId) {
-    }
-  }, []);
+const NormalResMenu = () => {
+  const isLoggedId = useSelector(state => state.authReducer.userId);
 
   return (
     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -34,7 +29,7 @@ const NormalResMenu = ({ pageLinks }) => {
       </NavLink>
 
       {pageLinks.map(pageLink => {
-        if (!userId && pageLink.requiresLogin) return null;
+        if (!isLoggedId && pageLink.requiresLogin) return null;
         return (
           <NavLink
             className={({ isActive }) =>

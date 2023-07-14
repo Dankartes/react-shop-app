@@ -8,6 +8,8 @@ import {
   stopLoading,
 } from './cart-slice';
 import { openDialogBox } from '../Dialog/dialog-slice';
+import { enqueueSnackbar } from 'notistack';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const fetchCartThunk = (userId, idToken) => {
   return async dispatch => {
@@ -63,6 +65,14 @@ export const addToCartThunk = (productId, userId, idToken) => {
             body: JSON.stringify({ productId: productId, quantity: 1 }),
           }
         );
+
+        if (!existingItem)
+          enqueueSnackbar('Product was added to cart!', {
+            variant: 'success',
+            iconVariant: {
+              success: <AddShoppingCartIcon style={{ marginRight: '5px' }} />,
+            },
+          });
 
         const data = await result.json();
 

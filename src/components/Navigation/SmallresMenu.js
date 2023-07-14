@@ -2,10 +2,11 @@ import { Home } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Typography, Box, IconButton, Menu, MenuItem } from '@mui/material';
 import { Link } from 'react-router-dom';
-// import { pageLinks } from './NavigationBar';
+import { pageLinks } from './NavigationBar';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const SmallResMenu = ({ pageLinks }) => {
+const SmallResMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
   const handleOpenNavMenu = event => {
@@ -15,6 +16,8 @@ const SmallResMenu = ({ pageLinks }) => {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+  const isLoggedIn = useSelector(state => state.authReducer.userId);
 
   return (
     <>
@@ -31,24 +34,28 @@ const SmallResMenu = ({ pageLinks }) => {
             display: { xs: 'block', md: 'none' },
           }}
         >
-          {pageLinks.map(pageLink => (
-            <MenuItem key={pageLink.page} onClick={handleCloseNavMenu}>
-              <Typography
-                component={Link}
-                to={pageLink.navLink}
-                textAlign="center"
-                sx={{
-                  textDecoration: 'none',
-                  color: 'black',
-                  '&:hover': {
+          {pageLinks.map(pageLink => {
+            if (!isLoggedIn && pageLink.requiresLogin) return null;
+
+            return (
+              <MenuItem key={pageLink.page} onClick={handleCloseNavMenu}>
+                <Typography
+                  component={Link}
+                  to={pageLink.navLink}
+                  textAlign="center"
+                  sx={{
+                    textDecoration: 'none',
                     color: 'black',
-                  },
-                }}
-              >
-                {pageLink.page}
-              </Typography>
-            </MenuItem>
-          ))}
+                    '&:hover': {
+                      color: 'black',
+                    },
+                  }}
+                >
+                  {pageLink.page}
+                </Typography>
+              </MenuItem>
+            );
+          })}
         </Menu>
       </Box>
 

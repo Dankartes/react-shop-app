@@ -6,7 +6,11 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { logout } from '../../store/Auth/auth-slice';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { clearCart } from '../../store/Cart/cart-slice';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export let pageLinks = [
   { page: 'Products', navLink: '/products/1', requiresLogin: false },
@@ -20,20 +24,45 @@ const NavigationBar = () => {
     state => state.cartReducer.allProductsQuantity
   );
 
+  const isLoggedIn = useSelector(state => state.authReducer.userId);
+
+  useEffect(() => {
+    if (!isLoggedIn) dispatch(clearCart());
+  }, [dispatch, isLoggedIn]);
+
   return (
     <AppBar position="sticky">
       <Container maxWidth="xl">
         <Toolbar bar disableGutters>
-          <NormalResMenu pageLinks={pageLinks} />
+          <NormalResMenu />
           <SmallResMenu pageLinks={pageLinks} />
           <CartButton quantity={allProductsQuantity} />
-          <button
-            onClick={() => {
-              dispatch(logout());
-            }}
-          >
-            LogOut
-          </button>
+          {isLoggedIn && (
+            <Button
+              variant="text"
+              sx={{ color: 'white', marginLeft: '5px' }}
+              onClick={() => {
+                dispatch(logout());
+              }}
+              startIcon={<LogoutIcon />}
+            >
+              Logout
+            </Button>
+          )}
+          {!isLoggedIn && (
+            <Button
+              startIcon={<LoginIcon />}
+              component={Link}
+              sx={{
+                marginLeft: '5px',
+                color: 'white !important',
+                textDecoration: 'none',
+              }}
+              to="/login"
+            >
+              LOGIN
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

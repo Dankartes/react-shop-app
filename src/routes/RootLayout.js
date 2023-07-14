@@ -11,14 +11,12 @@ import BottomNavigation from '../components/Navigation/BottomNavigation';
 import DialogBox from '../components/UI/DialogBox';
 import ReactDOM from 'react-dom';
 import { useSelector } from 'react-redux';
-import { autoLogin } from '../store/Auth/auth-slice';
+import { autoLogin, logout } from '../store/Auth/auth-slice';
 import { useState } from 'react';
 
 const RootLayout = () => {
   const dispatch = useDispatch();
   // const overlaysPortal = document.getElementById('overlays');
-
-  console.log('rendering..');
 
   const userData = useSelector(state => state.authReducer);
 
@@ -33,7 +31,12 @@ const RootLayout = () => {
     }
   }, [dispatch, userData]);
 
-  console.log(userData.userId);
+  useEffect(() => {
+    if (userData.userId)
+      setTimeout(() => {
+        dispatch(logout());
+      }, userData.expiresIn * 1000);
+  }, [userData, dispatch]);
 
   return (
     <div
